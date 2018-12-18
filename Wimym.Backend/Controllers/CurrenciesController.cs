@@ -15,9 +15,31 @@
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sort)
         {
-            return View(await _context.Currencies.ToListAsync());
+            ViewData["CodeSortparam"] = string.IsNullOrEmpty(sort) ? "code_desc" : "";
+            ViewData["NameSortparam"] =  sort =="name_asc" ? "name_desc" : "name_asc";
+
+            var currencies = from s in _context.Currencies select s;
+
+            switch (sort)
+            {
+                case "code_desc":
+                    currencies = currencies.OrderByDescending(s =>s.Code);
+                    break;
+                case "name_desc":
+                    currencies = currencies.OrderByDescending(s => s.Name);
+                    break;
+                case "name_asc":
+                    currencies = currencies.OrderBy(s => s.Name);
+                    break;
+                default:
+                    currencies = currencies.OrderBy(s => s.Code);
+                    break;
+
+            }
+            return View( await currencies.AsNoTracking().ToListAsync());
+           // return View(await _context.Currencies.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
