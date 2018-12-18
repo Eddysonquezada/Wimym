@@ -15,11 +15,26 @@
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string sort,string searchFilter)
+        public async Task<IActionResult> Index(string sort,
+            string currentFilter,
+            string searchFilter,
+            int? page)
         {
             ViewData["CodeSortparam"] = string.IsNullOrEmpty(sort) ? "code_desc" : "";
             ViewData["NameSortparam"] =  sort =="name_asc" ? "name_desc" : "name_asc";
+
+            if(searchFilter!=null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchFilter = currentFilter;
+            }
+
+
             ViewData["CurrentFilter"] = searchFilter;
+            ViewData["CurrentSort"] = sort;
 
             var currencies = from s in _context.Currencies select s;
 
@@ -44,8 +59,12 @@
                     break;
 
             }
-            return View( await currencies.AsNoTracking().ToListAsync());
-           // return View(await _context.Currencies.ToListAsync());
+
+            int pageSize = 2;
+            return View(await Pagination<Currency>.CreateAsync(currencies.AsNoTracking(), page ?? 1, pageSize));
+            
+            // return View( await currencies.AsNoTracking().ToListAsync());
+            // return View(await _context.Currencies.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
