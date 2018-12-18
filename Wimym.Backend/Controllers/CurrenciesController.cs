@@ -15,12 +15,18 @@
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string sort)
+        public async Task<IActionResult> Index(string sort,string searchFilter)
         {
             ViewData["CodeSortparam"] = string.IsNullOrEmpty(sort) ? "code_desc" : "";
             ViewData["NameSortparam"] =  sort =="name_asc" ? "name_desc" : "name_asc";
+            ViewData["CurrentFilter"] = searchFilter;
 
             var currencies = from s in _context.Currencies select s;
+
+            if (!string.IsNullOrEmpty(searchFilter))
+            {//alt + 124
+                currencies = currencies.Where(s => s.Code.Contains(searchFilter) || s.Name.Contains(searchFilter));
+            }
 
             switch (sort)
             {
