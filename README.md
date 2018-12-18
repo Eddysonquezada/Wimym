@@ -1,2 +1,2 @@
-# Wimap
-Where is my money? action planner  and budget  Wimapab
+# Wimym
+Where Is Wasted My Money?.  Budget And  Action Planner wimym apab or wiwmymbap ...or Wimap ab
