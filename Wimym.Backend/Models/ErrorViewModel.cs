@@ -1,5 +1,3 @@
-using System;
-
 namespace Wimym.Backend.Models
 {
     public class ErrorViewModel

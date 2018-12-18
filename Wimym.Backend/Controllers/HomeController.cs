@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Wimym.Backend.Models;
-
-namespace Wimym.Backend.Controllers
+﻿namespace Wimym.Backend.Controllers
 {
+    using System.Diagnostics;
+    using Microsoft.AspNetCore.Mvc;
+    using Wimym.Backend.Models;
+
     public class HomeController : Controller
     {
         public IActionResult Index()
