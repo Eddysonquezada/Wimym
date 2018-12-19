@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Wimym.Backend.Data;
 using Wimym.Backend.Models;
@@ -12,126 +14,102 @@ namespace Wimym.Backend.Controllers
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        UserManager<ApplicationUser> _userManager;
+        RoleManager<IdentityRole> _roleManager;
+        UserRol _userRol;
+        public List<SelectListItem> userRol;
 
-        public UsersController(ApplicationDbContext context)
+        public UsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
+        RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _userRol = new UserRol();
+            userRol = new List<SelectListItem>();
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ApplicationUsers.ToListAsync());
-        }
+            var ID = "";
+            var users = new List<User>();
+            var appUser = await _context.ApplicationUsers.ToListAsync();
 
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
+            foreach (var item in appUser)
             {
-                return NotFound();
+                ID = item.Id;
+                userRol = await _userRol.GetRol(_userManager, _roleManager, ID);
+                users.Add(new User()
+                {
+                    Id = item.Id,
+                    UserName = item.UserName,
+                    PhoneNumber = item.PhoneNumber,
+                    Email = item.Email,
+                    Rol = userRol[0].Text
+                });
             }
 
-            var applicationUser = await _context.ApplicationUsers
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
-            {
-                return NotFound();
-            }
-
-            return View(applicationUser);
+            return View(users.ToList());
         }
 
-        public IActionResult Create()
+        public async Task<List<ApplicationUser>> GetUsers(string id)
         {
-            return View();
+            var user = new List<ApplicationUser>();
+            var appUser = await _context.ApplicationUsers.SingleOrDefaultAsync(m => m.Id == id);
+            user.Add(appUser);
+            return user;
         }
-               
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( ApplicationUser applicationUser)
+
+        public async Task<string> EditUser(string id, string userName, string email, string phoneNumber, int accessFailedCount,
+           string concurrencyStamp,
+           bool emailConfirmed,
+           bool lockoutEnabled,
+           DateTimeOffset lockoutEnd,
+           string normalizedUserName,
+           string normalizedEmail,
+           string passwordHash,
+           bool phoneNumberConfirmed,
+           string securityStamp,
+           bool twoFactorEnabled,
+           ApplicationUser applicationUser)
         {
-            if (ModelState.IsValid)
+            var resp = "";
+
+            try
             {
-                _context.Add(applicationUser);
+                applicationUser = new ApplicationUser
+                {
+                    Id = id,
+                    UserName = userName,
+                    Email = email,
+                    PhoneNumber = phoneNumber,
+                    EmailConfirmed = emailConfirmed,
+                    LockoutEnabled = lockoutEnabled,
+                    LockoutEnd = lockoutEnd,
+                    NormalizedEmail = normalizedEmail,
+                    NormalizedUserName = normalizedUserName,
+                    PasswordHash = passwordHash,
+                    PhoneNumberConfirmed = phoneNumberConfirmed,
+                    SecurityStamp = securityStamp,
+                    TwoFactorEnabled = twoFactorEnabled,
+                    AccessFailedCount = accessFailedCount,
+                    ConcurrencyStamp = concurrencyStamp
+                };
+
+                _context.Update(applicationUser);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                resp = "Saved";
+
             }
-            return View(applicationUser);
+            catch (Exception ex)
+            {
+
+                resp = ex.Message;
+            }
+            return resp;
         }
 
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var applicationUser = await _context.ApplicationUsers.SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
-            {
-                return NotFound();
-            }
-            return View(applicationUser);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id,  ApplicationUser applicationUser)
-        {
-            if (id != applicationUser.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(applicationUser);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ApplicationUserExists(applicationUser.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(applicationUser);
-        }
-
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var applicationUser = await _context.ApplicationUsers
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
-            {
-                return NotFound();
-            }
-
-            return View(applicationUser);
-        }
-
-        // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var applicationUser = await _context.ApplicationUsers.SingleOrDefaultAsync(m => m.Id == id);
-            _context.ApplicationUsers.Remove(applicationUser);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
         private bool ApplicationUserExists(string id)
         {

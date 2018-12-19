@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Wimym.Backend.Models.ApplicationUser>
+﻿@model IEnumerable<Wimym.Backend.Models.User>
 @{
     ViewData["Title"] = "Users";
 }
@@ -13,6 +13,9 @@
                 Username
             </th>
             <th>
+                Rol
+            </th>
+            <th>
                 Email
             </th>
             <th>
@@ -24,27 +27,30 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                <td>
-                    <a class="btn btn-warning" data-toggle="modal" data-target="#myModal">Edit</a> |
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                <a class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="getUser('@item.Id','Users/GetUsers')">Edit</a> |
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -76,7 +82,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-primary" onclick="editUser('Users/EditUser')">Save Changes</button>
             </div>
         </div>
     </div>
