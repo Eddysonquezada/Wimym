@@ -71,7 +71,8 @@ function getRols(action) {
             if (j == 0) {
                 for (vari = 0; i < response.length; i++) {
                     document.getElementById('Select').options[i] = newOption(response[i].text, response[i].value);
-                }
+                    document.getElementById('SelectNew').options[i] = newOption(response[i].text, response[i].value);
+             }
                 j = 1;
             }
         }
@@ -148,5 +149,46 @@ function DeleteUser(action) {
                 }
             }
         });
+}
+
+function createUser(action) {
+
+    email = $('input[name=EmailNew]')[0].value;
+    phoneNumber = $('input[name=PhoneNumberNew]')[0].value;
+    passwordHash = $('input[name=PasswordNew]')[0].value;
+    rol = document.getElementById('SelectNew');
+    selectRol = rol.options[rol.selectedIndex].text;
+    answer = "";
+
+    if (email == "") {
+        $('#EmailNew').focus();
+        alert("Add an valid Email for this user");
+        return;
+    }
+    //else
+    //{
+
+    if (passwordHash == "") {
+        $('#PasswordNew').focus();
+        alert("Add a Password for this user");
+        return;
+    }
+    //else
+    //{ 
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { email, phoneNumber, passwordHash, selectRol },
+        success: function (response) {
+            if (response == "Save") {
+                window.location.href = "Users";
+            }
+            else {
+                $('#NewMessage').html("Can't save the user. <br/>Choose a rol. <br/> Add an Valid Email. <br/> Passwrod must have from 6-20 characters, almost an especial character, one Upper case letter and on number");
+            }
+        }
+    });
+    // }
+    //}
 }
 

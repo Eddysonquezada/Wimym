@@ -152,7 +152,7 @@ namespace Wimym.Backend.Controllers
             return resp;
         }
 
-        public async Task<String> DeleteUser(string id)
+        public async Task<string> DeleteUser(string id)
         {
             var resp = "";
             try
@@ -165,6 +165,29 @@ namespace Wimym.Backend.Controllers
             catch (Exception)
             {
                 resp = "NoDelete";
+            }
+            return resp;
+        }
+
+        public async Task<string> CreateUser(string email, string phoneNumber, string passwordHash, string selectRol, ApplicationUser applicationUser)
+        {
+            var resp = "";
+            applicationUser =
+                new ApplicationUser
+                {
+                    UserName = email,
+                    Email = email,
+                    PhoneNumber = phoneNumber
+                };
+            var result = await _userManager.CreateAsync(applicationUser, passwordHash);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(applicationUser, selectRol);
+                resp = "Save";
+            }
+            else
+            {
+                resp = "NoSave";
             }
             return resp;
         }
