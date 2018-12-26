@@ -1,8 +1,4 @@
-﻿$('#editModal').on('shown.bs.modal', function () {
-    $('#myInput').focus()
-})
-
-var items;
+﻿var items;
 var j = 0;
 var id;
 var userName;
@@ -23,6 +19,10 @@ var phoneNumberConfirmed;
 var securityStamp;
 var twoFactorEnabled;
 
+$('#editModal').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+});
+
 function getUser(id, action) {
     $.ajax({
         type: "POST",
@@ -31,7 +31,7 @@ function getUser(id, action) {
         success: function (response) {
             showUser(response);
         }
-    })
+    });
 }
 
 function showUser(response) {
@@ -49,6 +49,12 @@ function showUser(response) {
         $('input[name=PhoneNumber]').val(val.phoneNumber);
         document.getElementById('Select').options[0] = newOption(val.rol, val.rolId);
     });
+
+    $("#dEmail").text(val.email);
+    $("#dUserName").text(val.userName);
+    $("#dPhoneNumber").text(val.phoneNumber);
+    $("#dRol").text(val.rol);
+
 }
 
 function getRols(action) {
@@ -117,6 +123,10 @@ function editUser(action) {
                 alert("Something was wrong!!!");
             }
         }
-    })
+    });
+}
+
+function hideUserDetail() {
+    $("#detailModal").modal("hide");
 }
 

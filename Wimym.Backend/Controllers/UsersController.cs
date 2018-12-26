@@ -147,7 +147,6 @@ namespace Wimym.Backend.Controllers
             }
             catch (Exception ex)
             {
-
                 resp = ex.Message;
             }
             return resp;
