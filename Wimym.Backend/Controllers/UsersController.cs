@@ -152,7 +152,22 @@ namespace Wimym.Backend.Controllers
             return resp;
         }
 
-
+        public async Task<String> DeleteUser(string id)
+        {
+            var resp = "";
+            try
+            {
+                var applicationUser = await _context.ApplicationUsers.SingleOrDefaultAsync(m => m.Id == id);
+                _context.ApplicationUsers.Remove(applicationUser);
+                await _context.SaveChangesAsync();
+                resp = "Delete";
+            }
+            catch (Exception)
+            {
+                resp = "NoDelete";
+            }
+            return resp;
+        }
 
         private bool ApplicationUserExists(string id)
         {

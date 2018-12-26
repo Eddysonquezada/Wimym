@@ -55,6 +55,11 @@ function showUser(response) {
     $("#dPhoneNumber").text(val.phoneNumber);
     $("#dRol").text(val.rol);
 
+    //$('#delUserId').val(val.id);
+    $('input[name=delUserId]').val(val.id);
+    $('#delUser').val(val.userName);
+
+
 }
 
 function getRols(action) {
@@ -62,12 +67,9 @@ function getRols(action) {
         type: "POST",
         url: action,
         data: {},
-        success: function (response)
-        {
-            if (j == 0)
-            {
-                for (vari = 0; i < response.length; i++)
-                {
+        success: function (response) {
+            if (j == 0) {
+                for (vari = 0; i < response.length; i++) {
                     document.getElementById('Select').options[i] = newOption(response[i].text, response[i].value);
                 }
                 j = 1;
@@ -128,5 +130,23 @@ function editUser(action) {
 
 function hideUserDetail() {
     $("#detailModal").modal("hide");
+}
+
+function DeleteUser(action) {
+    var id = $('input[name=delUserId]')[0].value;
+    $.ajax(
+        {
+            type: "POST",
+            url: action,
+            data: { id },
+            success: function (response) {
+                if (response === "Delete") {
+                    window.location.href = "Users";
+                }
+                else {
+                    alert("User can't be deleted!!!!!");
+                }
+            }
+        });
 }
 
