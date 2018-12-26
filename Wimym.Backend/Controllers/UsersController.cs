@@ -17,7 +17,7 @@ namespace Wimym.Backend.Controllers
     {
         private readonly ApplicationDbContext _context;
         UserManager<ApplicationUser> _userManager;
-        RoleManager<IdentityRole> _roleManager;
+        readonly RoleManager<IdentityRole> _roleManager;
         UserRol _userRol;
         public List<SelectListItem> userRol;
 
@@ -84,7 +84,7 @@ namespace Wimym.Backend.Controllers
             return user;
         }
 
-        public async Task<List<SelectListItem>> GetRols()
+        public List<SelectListItem> GetRols()
         {
             var rolsList = new List<SelectListItem>();
             rolsList = _userRol.Rols(_roleManager);
