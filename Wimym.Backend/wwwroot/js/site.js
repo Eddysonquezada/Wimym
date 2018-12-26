@@ -8,6 +8,8 @@ var id;
 var userName;
 var email;
 var phoneNumber;
+var rol;
+var selectRol;
 
 var accessFailedCount;
 var concurrencyStamp;
@@ -45,7 +47,7 @@ function showUser(response) {
         $('input[name=UserName]').val(val.userName);
         $('input[name=Email]').val(val.email);
         $('input[name=PhoneNumber]').val(val.phoneNumber);
-        document.getElementById('Select').options[0] = newOption(val.role, val.roleId);
+        document.getElementById('Select').options[0] = newOption(val.rol, val.rolId);
     });
 }
 
@@ -73,6 +75,9 @@ function editUser(action) {
     email = $('input[name=Email]')[0].value;
     phoneNumber = $('input[name=PhoneNumber]')[0].value;
 
+    rol = document.getElementById('Select');
+    selectRol = role.options[rol.selectedIndex].text;
+
     $.each(items, function (index, val) {
         accessFailedCount = val.accessFailedCount;
         concurrencyStamp = val.concurrencyStamp;
@@ -87,6 +92,7 @@ function editUser(action) {
         securityStamp = val.securityStamp;
         twoFactorEnabled = val.twoFactorEnabled;
     });
+
     $.ajax({
         type: "POST",
         url: action,
@@ -101,7 +107,7 @@ function editUser(action) {
             passwordHash,
             phoneNumberConfirmed,
             securityStamp,
-            twoFactorEnabled
+            twoFactorEnabled, selectRol
         },
         success: function (response) {
             if (response = "Saved") {

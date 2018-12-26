@@ -85,7 +85,7 @@ namespace Wimym.Backend.Controllers
         public async Task<List<SelectListItem>> GetRols()
         {
             var rolsList = new List<SelectListItem>();
-            rolsList = _userRol.Rols(_roleManager);  
+            rolsList = _userRol.Rols(_roleManager);
             return rolsList;
         }
 
@@ -100,7 +100,7 @@ namespace Wimym.Backend.Controllers
        string passwordHash,
        bool phoneNumberConfirmed,
        string securityStamp,
-       bool twoFactorEnabled,
+       bool twoFactorEnabled, string selectRol,
        ApplicationUser applicationUser)
         {
             var resp = "";
@@ -128,6 +128,20 @@ namespace Wimym.Backend.Controllers
 
                 _context.Update(applicationUser);
                 await _context.SaveChangesAsync();
+
+                var user = await _userManager.FindByIdAsync(id);
+                userRol = await _userRol.GetRol(_userManager, _roleManager, id);
+                if (userRol[0].Text != "No Role")
+                {
+                    await _userManager.RemoveFromRoleAsync(user, userRol[0].Text);
+                }
+                if (selectRol == "No Role")
+                {
+                    selectRol = "User";
+                }
+
+                var result = await _userManager.AddToRoleAsync(user, selectRol);
+
                 resp = "Saved";
 
             }
