@@ -15,7 +15,7 @@ namespace Wimym.Backend.Models
             userRols = new List<SelectListItem>();
         }
 
-        public async Task<List<SelectListItem>> GetRol(UserManager<ApplicationUser> userManager, 
+        public async Task<List<SelectListItem>> GetRol(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             string iD)
         {
@@ -24,7 +24,7 @@ namespace Wimym.Backend.Models
             var user = await userManager.FindByIdAsync(iD);
             var rols = await userManager.GetRolesAsync(user);
 
-            if(rols.Count==0)
+            if (rols.Count == 0)
             {
                 userRols.Add(new SelectListItem()
                 {
@@ -51,5 +51,21 @@ namespace Wimym.Backend.Models
             return userRols;
 
         }
+
+        public List<SelectListItem> Rols(RoleManager<IdentityRole> roleManager)
+        {
+            var rols = roleManager.Roles.ToList();
+            foreach (var item in rols)
+            {
+                userRols.Add(
+                    new SelectListItem()
+                {
+                    Value = item.Id,
+                    Text = item.Name
+                });
+            }
+            return userRols;
+        }
+
     }
 }

@@ -3,6 +3,7 @@
 })
 
 var items;
+var j = 0;
 var id;
 var userName;
 var email;
@@ -33,11 +34,37 @@ function getUser(id, action) {
 
 function showUser(response) {
     items = response;
+    j = 0;
+    for (var i = 0; i < 3; i++) {
+        var x = document.getElementById('Select');
+        x.remove(i);
+    }
+
     $.each(items, function (index, val) {
         $('input[name=Id]').val(val.id);
         $('input[name=UserName]').val(val.userName);
         $('input[name=Email]').val(val.email);
         $('input[name=PhoneNumber]').val(val.phoneNumber);
+        document.getElementById('Select').options[0] = newOption(val.role, val.roleId);
+    });
+}
+
+function getRols(action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: {},
+        success: function (response)
+        {
+            if (j == 0)
+            {
+                for (vari = 0; i < response.length; i++)
+                {
+                    document.getElementById('Select').options[i] = newOption(response[i].text, response[i].value);
+                }
+                j = 1;
+            }
+        }
     });
 }
 
@@ -65,15 +92,15 @@ function editUser(action) {
         url: action,
         data: {
             id, userName, email, phoneNumber, accessFailedCount,
-            concurrencyStamp ,
-            emailConfirmed ,
-            lockoutEnabled ,
-            lockoutEnd ,
-            normalizedUserName ,
-            normalizedEmail ,
-            passwordHash ,
-            phoneNumberConfirmed ,
-            securityStamp ,
+            concurrencyStamp,
+            emailConfirmed,
+            lockoutEnabled,
+            lockoutEnd,
+            normalizedUserName,
+            normalizedEmail,
+            passwordHash,
+            phoneNumberConfirmed,
+            securityStamp,
             twoFactorEnabled
         },
         success: function (response) {

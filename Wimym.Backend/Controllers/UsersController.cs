@@ -52,26 +52,56 @@ namespace Wimym.Backend.Controllers
             return View(users.ToList());
         }
 
-        public async Task<List<ApplicationUser>> GetUsers(string id)
+        public async Task<List<User>> GetUsers(string id)
         {
-            var user = new List<ApplicationUser>();
+            var user = new List<User>();
             var appUser = await _context.ApplicationUsers.SingleOrDefaultAsync(m => m.Id == id);
-            user.Add(appUser);
+            userRol = await _userRol.GetRol(_userManager, _roleManager, id);
+
+            user.Add(new User()
+            {
+                Id = appUser.Id,
+                UserName = appUser.UserName,
+                PhoneNumber = appUser.PhoneNumber,
+                Email = appUser.Email,
+                Rol = userRol[0].Text,
+                RolId = userRol[0].Value,
+                AccessFailedCount = appUser.AccessFailedCount,
+                ConcurrencyStamp = appUser.ConcurrencyStamp,
+                EmailConfirmed = appUser.EmailConfirmed,
+                LockoutEnabled = appUser.LockoutEnabled,
+                LockoutEnd = appUser.LockoutEnd,
+                NormalizedEmail = appUser.NormalizedEmail,
+                NormalizedUserName = appUser.NormalizedUserName,
+                PasswordHash = appUser.PasswordHash,
+                PhoneNumberConfirmed = appUser.PhoneNumberConfirmed,
+                SecurityStamp = appUser.SecurityStamp,
+                TwoFactorEnabled = appUser.TwoFactorEnabled
+            });
+
             return user;
         }
 
+        public async Task<List<SelectListItem>> GetRols()
+        {
+            var rolsList = new List<SelectListItem>();
+            rolsList = _userRol.Rols(_roleManager);  
+            return rolsList;
+        }
+
+
         public async Task<string> EditUser(string id, string userName, string email, string phoneNumber, int accessFailedCount,
-           string concurrencyStamp,
-           bool emailConfirmed,
-           bool lockoutEnabled,
-           DateTimeOffset lockoutEnd,
-           string normalizedUserName,
-           string normalizedEmail,
-           string passwordHash,
-           bool phoneNumberConfirmed,
-           string securityStamp,
-           bool twoFactorEnabled,
-           ApplicationUser applicationUser)
+       string concurrencyStamp,
+       bool emailConfirmed,
+       bool lockoutEnabled,
+       DateTimeOffset lockoutEnd,
+       string normalizedUserName,
+       string normalizedEmail,
+       string passwordHash,
+       bool phoneNumberConfirmed,
+       string securityStamp,
+       bool twoFactorEnabled,
+       ApplicationUser applicationUser)
         {
             var resp = "";
 
