@@ -1,9 +1,11 @@
-﻿namespace Wimym.Backend.Models
+﻿using System;
+
+namespace Wimym.Backend.Models
 {
     using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-   // using Wimym.Domain.DataEntities.App;
+    // using Wimym.Domain.DataEntities.App;
 
 
     public class Currency
@@ -21,7 +23,9 @@
         [StringLength(100, MinimumLength = 1, ErrorMessage = "The {0} must be at least {2} and less than {1} characters")]
         [Display(Name = "Currency")]
         public string Name { get; set; }
-        
+
+        public bool State { get; set; } = true;
+
         [JsonIgnore]
         public virtual ICollection<Account> Accounts { get; set; }
     }

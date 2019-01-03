@@ -12,7 +12,7 @@ namespace Wimym.Backend.Controllers
             return View();
         }
 
-        [Authorize (Roles ="Admin")]
+       // [Authorize (Roles ="Admin")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

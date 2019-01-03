@@ -12,7 +12,7 @@ using Wimym.Backend.Models;
 
 namespace Wimym.Backend.Controllers
 {
-    [Authorize("Admin")]
+    //[Authorize("Admin")]
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;

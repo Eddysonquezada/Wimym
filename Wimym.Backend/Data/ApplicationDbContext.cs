@@ -48,7 +48,7 @@ namespace Wimym.Backend.Data
         [NotMapped]
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
-        public DbSet<Currency> Currency { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<Origin> Origins { get; set; }

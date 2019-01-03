@@ -1,4 +1,9 @@
-﻿namespace Wimym.Backend.Controllers
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Wimym.Backend.ModelsClass;
+
+namespace Wimym.Backend.Controllers
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -10,15 +15,40 @@
     public class CurrenciesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly CurrencyModels _currencyModels;
 
         public CurrenciesController(ApplicationDbContext context)
         {
             _context = context;
+            _currencyModels = new CurrencyModels(_context);
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Currency.ToListAsync());
+            return View(await _context.Currencies.ToListAsync());
+        }
+        //this name is how is called on the ajax action, its not neccesary called like the 
+        //function on the model 
+        public Task<List<IdentityError>> SaveCurrency(string code, string name, string state)
+        { //sometimes its a good practice make this call syncronous, in that case we need make the function
+            //on the model syncronous too
+            return _currencyModels.SaveCurrency(code, name, state);
+
+        }
+
+        public List<Currency> GetCurrencies(int id)
+        {
+            return _currencyModels.GetCurrencies(id);
+        }
+
+        public List<IdentityError> EditCurrency(int id, string code, string name,
+            bool state, string type)
+        {
+            return _currencyModels.EditCurrency(id, code, name, state, type);
+        }
+        public List<object[]> FilterData(int pageNumber, string filterValue)
+        {
+            return _currencyModels.FilterData(pageNumber, filterValue);
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -28,31 +58,13 @@
                 return NotFound();
             }
 
-            var currency = await _context.Currency
+            var currency = await _context.Currencies
                 .SingleOrDefaultAsync(m => m.CurrencyId == id);
             if (currency == null)
             {
                 return NotFound();
             }
 
-            return View(currency);
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Currency currency)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(currency);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
             return View(currency);
         }
 
@@ -63,7 +75,7 @@
                 return NotFound();
             }
 
-            var currency = await _context.Currency.SingleOrDefaultAsync(m => m.CurrencyId == id);
+            var currency = await _context.Currencies.SingleOrDefaultAsync(m => m.CurrencyId == id);
             if (currency == null)
             {
                 return NotFound();
@@ -73,7 +85,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  Currency currency)
+        public async Task<IActionResult> Edit(int id, Currency currency)
         {
             if (id != currency.CurrencyId)
             {
@@ -110,7 +122,7 @@
                 return NotFound();
             }
 
-            var currency = await _context.Currency
+            var currency = await _context.Currencies
                 .SingleOrDefaultAsync(m => m.CurrencyId == id);
             if (currency == null)
             {
@@ -124,15 +136,15 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var currency = await _context.Currency.SingleOrDefaultAsync(m => m.CurrencyId == id);
-            _context.Currency.Remove(currency);
+            var currency = await _context.Currencies.SingleOrDefaultAsync(m => m.CurrencyId == id);
+            _context.Currencies.Remove(currency);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CurrencyExists(int id)
         {
-            return _context.Currency.Any(e => e.CurrencyId == id);
+            return _context.Currencies.Any(e => e.CurrencyId == id);
         }
     }
 }
