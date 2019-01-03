@@ -20,8 +20,8 @@
         [MaxLength(100, ErrorMessage = "Max length is {1} characters")]
         public string Description { get; set; }
 
-        [Display(Name = "Estatus")]
-        public int StatusId { get; set; }
+        [Display(Name = "Status")]
+        public bool State { get; set; }
 
         [Display(Name = "Balance")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
@@ -33,8 +33,7 @@
 
         public int CurrencyId { get; set; }
 
-        [JsonIgnore]
-        public virtual Status Status { get; set; }
+       
         [JsonIgnore]
         public virtual Currency Currency { get; set; }
         [JsonIgnore]

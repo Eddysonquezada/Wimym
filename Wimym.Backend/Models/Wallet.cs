@@ -6,15 +6,16 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
-   // using Wimym.Domain.DataEntities.Configuration;
+    // using Wimym.Domain.DataEntities.Configuration;
 
+    //Personal Money, Bussineess 1, Bussiness 2, Wife Money
     public class Wallet
     {
         [Key]
         public int WalletId { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [MaxLength(10, ErrorMessage = "Max length is {1} characters")]
+        [MaxLength(25, ErrorMessage = "Max length is {1} characters")]
         public string Code { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
@@ -22,7 +23,7 @@
         [Display(Name = "Wallet")]
         public string Description { get; set; }
 
-        public int StatusId { get; set; }
+        public bool State { get; set; }
 
         [Display(Name = "Balance")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
@@ -34,12 +35,13 @@
 
         //[Display(Name = "Usuario")]
         //public int UserId { get; set; }
-        
-        public int OwnerId { get; set; }
 
-        [JsonIgnore]
-        public virtual Status Status { get; set; }
+        //  public int OwnerId { get; set; }
 
+        //public string UserId { get; set; }
+
+        //[JsonIgnore]
+        //public virtual User User { get; set; }
         [JsonIgnore]
         public virtual ICollection<Account> Accounts { get; set; }
 

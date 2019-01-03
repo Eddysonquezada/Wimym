@@ -6,6 +6,7 @@
     using System.ComponentModel.DataAnnotations;
   //  using Wimym.Domain.DataEntities.App;
 
+        //debit, credit
     public class Origin
     {
         [Key]

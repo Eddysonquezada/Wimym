@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Wimym.Backend.Models
 {
@@ -41,6 +42,9 @@ namespace Wimym.Backend.Models
         public string Rol { get; set; }
 
         public string RolId { get; set; }
+
+        //[JsonIgnore]
+        //public virtual ICollection<Wallet> Wallets { get; set; }
 
     }
 }

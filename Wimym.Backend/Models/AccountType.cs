@@ -8,6 +8,7 @@
     using System.Text;
     //using Wimym.Domain.DataEntities.App;
 
+        //credit card, loan, saving account
     public class AccountType
     {
         [Key]
@@ -26,12 +27,10 @@
         [MaxLength(100, ErrorMessage = "Max length is {1} characters")]
         public string Description { get; set; }
 
-        public int StatusId { get; set; }
+        public bool State { get; set; }
 
         public int OriginId { get; set; }
-
-        [JsonIgnore]
-        public virtual Status Status { get; set; }
+        
         [JsonIgnore]
         public virtual Origin Origin { get; set; }
         [JsonIgnore]
