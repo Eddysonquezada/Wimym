@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-Wimym.Backend-69192339-CB45-4C39-A32D-97930D7B0EB3</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Views\Currencies\Create.cshtml" />
+    <Content Remove="Views\Currencies\Delete.cshtml" />
+    <Content Remove="Views\Currencies\Details.cshtml" />
+    <Content Remove="Views\Currencies\Edit.cshtml" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />

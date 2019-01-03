@@ -1,6 +1,108 @@
-﻿@*@model IEnumerable<Wimym.Backend.Models.Currency>*@
+﻿
 
 @{
+    ViewData["Title"] = "Currencies";
+}
+
+<h2>Currencies</h2>
+
+<p>
+    <a data-toggle='modal' data-target='#ModalAddEdit' class='btn btn-info'>Create Currency</a>
+</p>
+<div class="form-group">
+    <div class="col-md-6">
+        <input id="Filter" name="Filter" placeholder="Search" onKeyUp="filterData(1,'code');" class="form-control" />
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            <a href="#" onclick='filterData(1,"code")'>Code</a>
+        </th>
+        <th>
+            <a href="#" onclick='filterData(1,"name")'>Name</a>
+        </th>
+        <th>
+            <a href="#" onclick='filterData(1,"state")'>State</a>
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
+    </thead>
+    <tbody id="resultSearch"></tbody>
+</table>
+<div id="paginationx">
+
+</div>
+
+<div class="modal fade" id="ModalAddEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add or Edit Currency</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="Code" class="col-md-2 control-label">Code</label>
+                            <div class="col-md-10">
+                                <input for="Code" id="Code" placeholder="Code" name="Code" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Name" class="col-md-2 control-label">Name</label>
+                            <div class="col-md-10">
+                                <input for="Name" id="Name" placeholder="Name" name="Name" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="State" class="col-md-2 control-label">State</label>
+                            <div class="col-md-10">
+                                <select id='State' class="form-control">
+                                    <option value='0'>Select a State</option>
+                                    <option value='true'>Active</option>
+                                    <option value='false'>Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <label id="lblMessage" class="col-md-2 control-label"></label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" onclick="addCurrency()" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalState" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="titleCurrency" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="editCurrency()" class="btn btn-primary">Accept</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+@*@model IEnumerable<Wimym.Backend.Models.Currency>*@
+
+@*@{
     ViewData["Title"] = "Currencies";
 }
 
@@ -9,12 +111,12 @@
 <p>
     <a data-toggle='modal' data-target='#modalAdd' class='btn btn-info'>
         Add New Currency
-    </a>
+    </a>*@
     @*<a asp-action="Create">Create New</a>*@
-</p>
+@*</p>
 <div class="form-group">
     <div class="col-md-6">
-        <input id="filter" name="filter" placeholder="Search" onKeyUp="filterData(1);" class="form-control" />
+        <input id="filter" name="filter" placeholder="Search" onKeyUp="filterData(1,'code');" class="form-control" />
     </div>
 </div>
 <table class="table">
@@ -24,10 +126,10 @@
                 <a href="#" onclick="filterData(1,'code')">
                     Code
                 </a>
-                @*Code*@
+               
             </th>
             <th>
-                @*Name*@
+               
                 <a href="#" onclick="filterData(1,'name')">
                     Name
                 </a>
@@ -45,7 +147,7 @@
     <tbody id="resultSearch"></tbody>
 </table>
 <div id="pagination">
-</div>
+</div>*@
 @*<table class="table">
         <thead>
             <tr>
@@ -78,7 +180,7 @@
         </tbody>
     </table>*@
 
-<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+@*<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -137,4 +239,4 @@
             </div>
         </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
-</div><!--/.modal -->
+</div><!--/.modal -->*@

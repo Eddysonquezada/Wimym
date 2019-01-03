@@ -192,51 +192,95 @@ function createUser(action) {
     //}
 }
 
+$().ready(() => {
+    document.getElementById("Filter").focus();
+    filterData(1, "code");
+});
+
+var idCurrency;
+var type = 0;
+
 var addCurrency = () => {
     var code = document.getElementById("Code").value;
     var name = document.getElementById("Name").value;
     var states = document.getElementById('State');
     var state = states.options[states.selectedIndex].value;
-    var action = '';
+    var action = "";
     if (type == 0) {
-        action = 'Currencies/SaveCurrency';
+          action = 'Currencies/SaveCurrency';
+    } else {
+          action = 'Currencies/EditCurrency';
     }
-    else {
-        action = 'Currencies/editCurrency';
-    }
-    //  var action = 'Currencies/SaveCurrency';
-    var currency = new Currency(code, name, state, action);
-    // currency.addCurrency();
+    var currency = new Currencies(code, name, state, action);
     currency.addCurrency(idCurrency, type);
-};
+}
 
 var filterData = (pageNum, order) => {
-    var filterValue = document.getElementById("filter").value;
+    var filterValue = document.getElementById("Filter").value;
     var action = 'Currencies/FilterData';
-    var currency = new Currency(filterValue, "", "", action);
+    var currency = new Currencies(filterValue, "", "", action);
     currency.filterData(pageNum, order);
-};
+}
 
-var idCurrency;
-var type = 0;
 var editState = (id, ty) => {
     idCurrency = id;
     type = ty;
     var action = 'Currencies/GetCurrencies';
-    var currency = new Currency("", "", "", action);
+    var currency = new Currencies("", "", "", action);
     currency.getCurrency(id, type);
-};
+}
 
 var editCurrency = () => {
     var action = 'Currencies/EditCurrency';
-    var currency = new Currency("", "", "", action);
-    // currency.editCurrency(idCurrency, "state");
+    var currency = new Currencies("", "", "", action);
     currency.editCurrency(idCurrency, type);
-};
+}
+
+//var addCurrency = () => {
+//    var code = document.getElementById("Code").value;
+//    var name = document.getElementById("Name").value;
+//    var states = document.getElementById('State');
+//    var state = states.options[states.selectedIndex].value;
+//    var action = '';
+//    if (type == 0) {
+//        action = 'Currencies/SaveCurrency';
+//    }
+//    else {
+//        action = 'Currencies/editCurrency';
+//    }
+//    //  var action = 'Currencies/SaveCurrency';
+//    var currency = new Currency(code, name, state, action);
+//    // currency.addCurrency();
+//    currency.addCurrency(idCurrency, type);
+//};
+
+//var filterData = (pageNum, order) => {
+//    var filterValue = document.getElementById("filter").value;
+//    var action = 'Currencies/FilterData';
+//    var currency = new Currency(filterValue, "", "", action);
+//    currency.filterData(pageNum, order);
+//};
+
+//var idCurrency;
+//var type = 0;
+//var editState = (id, ty) => {
+//    idCurrency = id;
+//    type = ty;
+//    var action = 'Currencies/GetCurrencies';
+//    var currency = new Currency("", "", "", action);
+//    currency.getCurrency(id, type);
+//};
+
+//var editCurrency = () => {
+//    var action = 'Currencies/EditCurrency';
+//    var currency = new Currency("", "", "", action);
+//    // currency.editCurrency(idCurrency, "state");
+//    currency.editCurrency(idCurrency, type);
+//};
 
 
-$().ready(() => {
-    document.getElementById("filter").focus();
-    filterData(1,'code');
-});
+//$().ready(() => {
+//    document.getElementById("filter").focus();
+//    filterData(1,'code');
+//});
 
