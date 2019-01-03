@@ -72,7 +72,7 @@ function getRols(action) {
                 for (var i = 0; i < response.length; i++) {
                     document.getElementById('Select').options[i] = new Option(response[i].text, response[i].value);
                     document.getElementById('SelectNew').options[i] = new Option(response[i].text, response[i].value);
-             }
+                }
                 j = 1;
             }
         }
@@ -198,45 +198,45 @@ var addCurrency = () => {
     var states = document.getElementById('State');
     var state = states.options[states.selectedIndex].value;
     var action = '';
-    if (type == 0)
-    {
-          action = 'Currencies/SaveCurrency';
+    if (type == 0) {
+        action = 'Currencies/SaveCurrency';
     }
     else {
-          action = 'Currencies/editCurrency';
+        action = 'Currencies/editCurrency';
     }
-  //  var action = 'Currencies/SaveCurrency';
+    //  var action = 'Currencies/SaveCurrency';
     var currency = new Currency(code, name, state, action);
-   // currency.addCurrency();
-    currency.addCurrency(idCurrency,type);
+    // currency.addCurrency();
+    currency.addCurrency(idCurrency, type);
 };
 
-var filterData = (pageNum) => {
+var filterData = (pageNum, order) => {
     var filterValue = document.getElementById("filter").value;
     var action = 'Currencies/FilterData';
     var currency = new Currency(filterValue, "", "", action);
-    currency.filterData(pageNum);
+    currency.filterData(pageNum, order);
 };
 
 var idCurrency;
-var type;
-var editState = (id,ty) => {
+var type = 0;
+var editState = (id, ty) => {
     idCurrency = id;
     type = ty;
     var action = 'Currencies/GetCurrencies';
     var currency = new Currency("", "", "", action);
-    currency.getCurrency(id);
+    currency.getCurrency(id, type);
 };
 
 var editCurrency = () => {
     var action = 'Currencies/EditCurrency';
     var currency = new Currency("", "", "", action);
-    currency.editCurrency(idCurrency, "state");
+    // currency.editCurrency(idCurrency, "state");
+    currency.editCurrency(idCurrency, type);
 };
- 
+
 
 $().ready(() => {
     document.getElementById("filter").focus();
-    filterData(1);
+    filterData(1,'code');
 });
 

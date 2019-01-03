@@ -45,13 +45,13 @@ namespace Wimym.Backend.ModelsClass
 
         private bool states;
         public List<IdentityError> EditCurrency(int idCurrency, string code,
-            string name, bool state, string type)
+            string name, bool state, int type)
         {
             var errorList = new List<IdentityError>();
              string stsCode = "", des = "";
             switch (type)
             {
-                case "state":
+                case 0: // "state":
                     //if (state)
                     //{
                     //    states = false;
@@ -61,47 +61,74 @@ namespace Wimym.Backend.ModelsClass
                     //    states = true;
                     //}
                      states = !state;
-                    var currency = new Currency 
-                    {
-                        CurrencyId = idCurrency,
-                        Code = code,
-                        Name = name,
-                        State = states
-                    };
-                    try
-                    {
-                        _context.Update(currency);
-                        _context.SaveChanges();
-                        stsCode = "200:Ok";
-                        des = "Save";
-                    }
-                    catch (Exception ex)
-                    {
-                        stsCode = "500:Error";
-                        des = ex.Message;
-                    }
                     break;
+                case 1:
+                    states = state;
+                    break;
+            }
+
+            var currency = new Currency
+            {
+                CurrencyId = idCurrency,
+                Code = code,
+                Name = name,
+                State = states
+            };
+            try
+            {
+                _context.Update(currency);
+                _context.SaveChanges();
+                stsCode = "200:Ok";
+                des = "Save";
+            }
+            catch (Exception ex)
+            {
+                stsCode = "500:Error";
+                des = ex.Message;
             }
             errorList.Add(new IdentityError { Code = stsCode, Description = des });
             return errorList;
         }
-        public List<object[]> FilterData(int pageNum, string valor)
+
+        public List<object[]> FilterData(int pageNum, string filterValue,string order)
         {
             int count = 0, cant, regsNum = 0, start = 0, regsForPage = 5;
             int pageCant, page;
             string dataFilter = "", paginator = "", State = null;
-            List<object[]> data = new List<object[]>(); IEnumerable<Currency> query;
-            var currencies = _context.Currencies.OrderBy(c => c.Code).ToList();
-            regsNum = currencies.Count; start = (pageNum - 1) * regsForPage;
+            List<object[]> data = new List<object[]>();
+            IEnumerable<Currency> query;
+            List<Currency> currencies = null;
+            switch (order)
+            {
+                case "code":
+                    currencies = _context.Currencies.OrderBy(c => c.Code).ToList();
+                    break;
+                case "name":
+                    currencies = _context.Currencies.OrderBy(c => c.Name).ToList();
+                    break;
+                case "state":
+                    currencies = _context.Currencies.OrderBy(c => c.State).ToList();
+                    break;
+            }
+            // var currencies = _context.Currencies.OrderBy(c => c.Code).ToList();
+            if (currencies != null)
+            {
+                regsNum = currencies.Count;
+            }
+            if ((regsNum % regsForPage) > 0)
+            {
+                regsNum += 1;
+            }
+            start = (pageNum - 1) * regsForPage;
             pageCant = (regsNum / regsForPage);
-            if (valor == "null")
+            if (filterValue == "null")
             {
                 query = currencies.Skip(start).Take(regsForPage);
             }
             else
             {
-                query = currencies.Where(c => c.Code.StartsWith(valor)
-                || c.Name.StartsWith(valor)).Skip(start).Take(regsForPage);
+                query = currencies.Where(c => c.Code.StartsWith(filterValue)
+                || c.Name.StartsWith(filterValue)).Skip(start).Take(regsForPage);
             }
             cant = query.Count();
             foreach (var item in query)
@@ -129,6 +156,31 @@ namespace Wimym.Backend.ModelsClass
                     //"<a data-toggle='modal' data-target='#myModal3' class='btn btn-danger' >Delete</a>" +
                     "</td>" +
                     "</tr>";
+            }
+            if (filterValue == "null")
+            {
+                if (pageNum > 1)
+                {
+                    page = pageNum - 1;
+                    paginator += "<a class='btn btn-default' onclick='filterData(" + 1 + ',' + '"' +
+                                 order + '"' + ")'> << </a>" +
+                                 "<a class='btn btn-default' onclick='filterData(" + page + ',' + '"' +
+                                 order + '"' + ")'> < </a>";
+
+                }
+                if (1 < pageCant)
+                {
+                    paginator += "<strong class='btn btn-success'>" + pageNum + ".from." + 
+                        pageCant + "</strong"; 
+                }
+                if (pageNum < pageCant)
+                {
+                    page = pageNum + 1;
+                    paginator += "<a class='btn btn-default' onclick='filterData(" + page + ',' + '"' +
+                                 order + '"' + ")'> > </a>" +
+                                 "<a class='btn btn-default' onclick='filterData(" + pageCant + ',' + '"' +
+                                 order + '"' + ")'> >> </a>";
+                }
             }
             object[] dataObj = { dataFilter, paginator };
             data.Add(dataObj);

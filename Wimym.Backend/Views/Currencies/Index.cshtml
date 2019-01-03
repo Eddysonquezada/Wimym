@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Wimym.Backend.Models.Currency>
+﻿@*@model IEnumerable<Wimym.Backend.Models.Currency>*@
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Currencies";
 }
 
 <h2>Index</h2>
@@ -20,10 +20,26 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>State</th>
-            <th>Options</th>
+            <th>
+                <a href="#" onclick="filterData(1,'code')">
+                    Code
+                </a>
+                @*Code*@
+            </th>
+            <th>
+                @*Name*@
+                <a href="#" onclick="filterData(1,'name')">
+                    Name
+                </a>
+            </th>
+            <th>
+                <a href="#" onclick="filterData(1,'state')">
+                    State
+                </a>
+            </th>
+            <th>
+                Options
+            </th>
         </tr>
     </thead>
     <tbody id="resultSearch"></tbody>
