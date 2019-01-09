@@ -59,6 +59,8 @@ namespace Wimym.Frontend
                   options.Scope.Add("Wimym.Api");
 
                   options.SaveTokens = true;
+
+                  // Esto ya no es necesario, me percaté que el ProfileService esta seteando correctamente los claims
                   ////an easy way to store claims is the next one, we didnt use it, because we need to do charpintery with it
                   //options.ClaimActions.Add(new JsonKeyClaimAction(ClaimTypes.Name, ClaimTypes.Name, ClaimTypes.Name));
                   //options.ClaimActions.Add(new JsonKeyClaimAction(ClaimTypes.Surname, ClaimTypes.Surname, ClaimTypes.Surname));
@@ -95,6 +97,15 @@ namespace Wimym.Frontend
             });
             #endregion
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin", builder =>
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .AllowAnyOrigin()
+                );
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -116,6 +127,7 @@ namespace Wimym.Frontend
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseMvc(routes =>
             {

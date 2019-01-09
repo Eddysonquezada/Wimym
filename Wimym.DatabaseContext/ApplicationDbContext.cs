@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Model.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Wimym.Common;
 using Wimym.DatabaseContext.Config;
 using Wimym.Model.Domain;
 using Wimym.Model.Domain.DbHelper;
@@ -14,11 +16,16 @@ namespace Wimym.DatabaseContext
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
-           base(options)
-        {
+        private readonly ICurrentUserFactory _currentUser;
 
+        public ApplicationDbContext(
+            DbContextOptions<ApplicationDbContext> options,
+            ICurrentUserFactory currentUser = null
+        ) : base(options)
+        {
+            _currentUser = currentUser;
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // ...
@@ -48,7 +55,9 @@ namespace Wimym.DatabaseContext
         }
 
         public DbSet<Origin> Origins { get; set; }
-        
+        public DbSet<CommentsPerPhoto> CommentsPerPhoto { get; set; }
+        public DbSet<LikesPerPhoto> LikesPerPhoto { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         public override int SaveChanges()
         {
@@ -112,8 +121,8 @@ namespace Wimym.DatabaseContext
             #region SoftDeleted
             modelBuilder.Entity<ApplicationUser>().HasQueryFilter(x => !x.Deleted);
             modelBuilder.Entity<Origin>().HasQueryFilter(x => !x.Deleted);
-            //modelBuilder.Entity<LikesPerPhoto>().HasQueryFilter(x => !x.Deleted);
-            //modelBuilder.Entity<Photo>().HasQueryFilter(x => !x.Deleted);
+            modelBuilder.Entity<LikesPerPhoto>().HasQueryFilter(x => !x.Deleted);
+            modelBuilder.Entity<Photo>().HasQueryFilter(x => !x.Deleted);
             #endregion
         }
 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace VueSpaApplication.Controllers
+namespace Wimym.Frontend.Controllers
 {
     [Authorize]
     public class AuthController : Controller

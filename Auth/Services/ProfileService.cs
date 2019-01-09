@@ -13,6 +13,7 @@ namespace Auth.Services
     public class ProfileService : IProfileService
     {
         protected UserManager<ApplicationUser> _userManager;
+
         public ProfileService(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
@@ -25,22 +26,37 @@ namespace Auth.Services
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Surname, user.LastName),
+                new Claim(ClaimTypes.Surname, user.Lastname),
                 new Claim(ClaimTypes.Uri, user.SeoUrl),
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.SeoUrl),
                 new Claim("ImageProfile", user.Image ?? "")
             };
 
+            var roles = _userManager.GetRolesAsync(user).Result;
+
+            // Seteamos el primer rol encontrado
+            if (roles != null && roles.Any())
+            {
+                claims.Add(new Claim(ClaimTypes.Role, roles.First()));
+            }
+
             context.IssuedClaims.AddRange(claims);
+
             return Task.FromResult(0);
         }
 
         public Task IsActiveAsync(IsActiveContext context)
         {
-            //in case you want to implement a logic for banner users
-           // context.IsActive = !user.isbanned;
             var user = _userManager.GetUserAsync(context.Subject).Result;
+
+            // Su lógica para validar si el usuario tiene acceso al sistema o no
+            /*
+             context.IsActive = !user.IsBanned;
+             */
+
             context.IsActive = true;
+
             return Task.FromResult(0);
         }
     }

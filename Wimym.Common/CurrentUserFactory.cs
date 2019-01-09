@@ -56,6 +56,11 @@ namespace Wimym.Common
                     result.Lastname = claims.Where(x => x.Type.Equals(ClaimTypes.Surname)).First().Value;
                 }
 
+                if (claims.Any(x => x.Type.Equals(ClaimTypes.NameIdentifier)))
+                {
+                    result.SeoUrl = claims.Where(x => x.Type.Equals(ClaimTypes.NameIdentifier)).First().Value;
+                }
+
                 if (claims.Any(x => x.Type.Equals("access_token")))
                 {
                     result.Token = claims.Where(x => x.Type.Equals("access_token")).First().Value;
@@ -64,6 +69,11 @@ namespace Wimym.Common
                 if (claims.Any(x => x.Type.Equals("ImageProfile")))
                 {
                     result.Image = claims.Where(x => x.Type.Equals("ImageProfile")).First().Value;
+                }
+
+                if (claims.Any(x => x.Type.Equals(ClaimTypes.Role)))
+                {
+                    result.Role = claims.Where(x => x.Type.Equals(ClaimTypes.Role)).First().Value;
                 }
 
                 return result;
@@ -75,9 +85,11 @@ namespace Wimym.Common
     {
         public string UserId { get; set; }
         public string Name { get; set; }
+        public string SeoUrl { get; set; }
         public string Lastname { get; set; }
         public string Email { get; set; }
         public string Image { get; set; }
         public string Token { get; set; }
+        public string Role { get; set; }
     }
 }

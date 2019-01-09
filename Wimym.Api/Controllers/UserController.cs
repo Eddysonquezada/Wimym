@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Model.Shared;
 using Wimym.Model.Shared;
 using Wimym.Services;
 
@@ -13,24 +16,39 @@ namespace Wimym.Api.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         public UserController(
-            IUserService userService
+            IUserService userService,
+            IHostingEnvironment hostingEnvironment
         )
         {
             _userService = userService;
+            _hostingEnvironment = hostingEnvironment;
         }
 
-        [AllowAnonymous]
-        [HttpGet("users/{id}")]
-        public async Task<IActionResult> Get(string id)
+        [HttpGet("users")]
+        public async Task<IActionResult> GetAll([FromQuery] ApiFilter queryFilter)
         {
             return Ok(
-                await _userService.Get(id)
+                await _userService.GetAll(queryFilter)
             );
         }
 
-        [AllowAnonymous]
+        /// Agregué el identifier porque este endpoint retorna un solo registro
+        /// y de esta manera evito que tenga conflicto con el endpoint que trae todo
+        /// los registros.
+        /// 
+        /// El identifier no lo usamos para nada, simplemente es un decorador para nuestra
+        /// definir nuestra ruta del GET
+        [HttpGet("users/{identifier}")]
+        public async Task<IActionResult> Get([FromQuery] ApiFilter queryFilter)
+        {
+            return Ok(
+                await _userService.GetByFilter(queryFilter)
+            );
+        }
+
         [HttpPatch("users/{id}")]
         public async Task<IActionResult> Patch(
             string id,
@@ -38,7 +56,30 @@ namespace Wimym.Api.Controllers
         )
         {
             await _userService.PartialUpdate(id, model);
-            //the partial update //pacth, for best practice dont return body
+
+            return NoContent();
+        }
+
+        [HttpPut("users/{id}/image")]
+        public async Task<IActionResult> ImagePut(
+            string id,
+            [FromBody]FileDto model
+        )
+        {
+            var fileName = model.UniqueName;
+            var filePath = $"{_hostingEnvironment.WebRootPath}\\Uploads\\{fileName}";
+
+            using (var ms = model.ReadAsStream())
+            using (var file = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite))
+            {
+                await ms.CopyToAsync(file);
+            }
+
+            await _userService.PartialUpdate(id, new UserPartialDto
+            {
+                Image = fileName
+            });
+
             return NoContent();
         }
     }

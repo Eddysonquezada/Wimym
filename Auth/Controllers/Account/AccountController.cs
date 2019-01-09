@@ -96,7 +96,7 @@ namespace Auth.Controllers
                     Email = model.Email,
                     SeoUrl = seoUrl,
                     Name = model.Name,
-                    LastName = model.Lastname
+                    Lastname = model.Lastname
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

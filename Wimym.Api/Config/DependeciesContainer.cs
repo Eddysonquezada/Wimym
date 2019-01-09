@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,11 @@ namespace Wimym.Api.Config
 
             #region My services
             services.AddScoped<IUserService, UserService>();
-            #endregion
+            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ILikeService, LikeService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IReportService, ReportService>();
+            #endregion 
         }
     }
 }
