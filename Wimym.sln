@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wimym.Backend", "Wimym.Backend\Wimym.Backend.csproj", "{33B71BE9-8ADC-4F5B-A49A-3D980BFA66A0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Client", "_Client", "{208310BB-01F4-4594-8469-A128B1952BA2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{CB3ED698-322C-4E50-B518-A112DB0A1713}"
@@ -27,16 +25,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wimym.Services", "Wimym.Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wimym.DatabaseContext", "Wimym.DatabaseContext\Wimym.DatabaseContext.csproj", "{CCDC2F3A-F1E0-48D6-9BE3-CCA7E60216F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth", "Auth\Auth.csproj", "{0F2B384D-5869-4AAA-B162-F967E27CFEB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{33B71BE9-8ADC-4F5B-A49A-3D980BFA66A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33B71BE9-8ADC-4F5B-A49A-3D980BFA66A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33B71BE9-8ADC-4F5B-A49A-3D980BFA66A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33B71BE9-8ADC-4F5B-A49A-3D980BFA66A0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{054F76B5-69D8-4E23-A394-523F33789831}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{054F76B5-69D8-4E23-A394-523F33789831}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{054F76B5-69D8-4E23-A394-523F33789831}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,6 +57,10 @@ Global
 		{CCDC2F3A-F1E0-48D6-9BE3-CCA7E60216F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCDC2F3A-F1E0-48D6-9BE3-CCA7E60216F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCDC2F3A-F1E0-48D6-9BE3-CCA7E60216F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2B384D-5869-4AAA-B162-F967E27CFEB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2B384D-5869-4AAA-B162-F967E27CFEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2B384D-5869-4AAA-B162-F967E27CFEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2B384D-5869-4AAA-B162-F967E27CFEB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +72,7 @@ Global
 		{74C0B35B-4CBD-48A3-A8E5-4B55461AE9D8} = {85209C35-C36F-4FD5-AE0A-D05C9618EA93}
 		{82821E7E-2EC0-4C5A-ADC7-FF2B3CEAFF6E} = {2845566E-EB73-4D1F-8402-BA20149139FD}
 		{CCDC2F3A-F1E0-48D6-9BE3-CCA7E60216F0} = {243AD66A-FBF4-4080-A187-5520A502AA8A}
+		{0F2B384D-5869-4AAA-B162-F967E27CFEB2} = {CB3ED698-322C-4E50-B518-A112DB0A1713}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB08AB24-CC1D-4CD7-807D-0D2812A83BD4}

@@ -11,4 +11,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="wwwroot\main\src\components\backoffice\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wimym.Common\Wimym.Common.csproj" />
+    <ProjectReference Include="..\Wimym.Services\Wimym.Services.csproj" />
+  </ItemGroup>
+
 </Project>
