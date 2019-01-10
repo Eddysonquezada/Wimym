@@ -1,8 +1,7 @@
 ﻿namespace Wimym.DatabaseContext.Config
 {
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Wimym.Model.Domain._Control;
-    using Wimym.Model.Domain._General;
+    using Model.Domain._General;
 
     public class TagConfig
     {

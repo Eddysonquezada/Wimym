@@ -1,10 +1,7 @@
 ﻿namespace Wimym.Model.Shared._General
 {
-    using Wimym.Model.Domain._Control;
-    using Wimym.Model.Domain.DbHelper;
+    using Model.Shared._Control;
     using System;
-    using System.ComponentModel.DataAnnotations;
-    using Wimym.Model.Shared._Control;
 
     public class OperationDto
     {       
@@ -27,8 +24,8 @@
         public   AccountingAccountDto Account { get; set; }
         public int AccountId { get; set; } //  [Display(Name = "Cuenta")]        
         // public int? AccountId2 { get; set; } //[Display(Name = "Destination (Target)")]
-        public AccountingAccountDto AccountDest { get; set; }
-        public int AccountDestId { get; set; }
+        //public AccountingAccountDto AccountDest { get; set; }
+        //public int AccountDestId { get; set; }
 
         public   TagDto Tag { get; set; }
         public int TagId { get; set; } // [Display(Name = "Label (Concept)")]
@@ -54,7 +51,7 @@
 
         public int? AccountId { get; set; } //  [Display(Name = "Cuenta")]        
        
-        public int? AccountDestId { get; set; }
+      //  public int? AccountDestId { get; set; }
 
         public int? TagId { get; set; } // [Display(Name = "Label (Concept)")]
 
@@ -83,7 +80,7 @@
 
         public string Account { get; set; } //  [Display(Name = "Cuenta")]        
   
-        public string AccountDest { get; set; }
+        //public string AccountDest { get; set; }
 
         public string Tag { get; set; } // [Display(Name = "Label (Concept)")]
 

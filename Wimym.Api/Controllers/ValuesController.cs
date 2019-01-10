@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Wimym.Api.Controllers
+﻿namespace Wimym.Api.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
     [Authorize]
-    [Route("[controller]")]
+    [Route("api/[controller]")] //[Route("[controller]")]
     public class ValuesController : Controller
     {
         // GET api/values

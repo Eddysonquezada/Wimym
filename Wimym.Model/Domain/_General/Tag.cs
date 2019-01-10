@@ -1,8 +1,8 @@
 ﻿namespace Wimym.Model.Domain._General
 {
+    using Model.Domain._Control;
+    using Model.Domain.DbHelper;
     using System.Collections.Generic;
-    using Wimym.Model.Domain._Control;
-    using Wimym.Model.Domain.DbHelper;
 
     public class Tag : AuditEntity, ISoftDeleted
     {

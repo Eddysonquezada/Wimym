@@ -1,7 +1,7 @@
 ﻿namespace Wimym.Model.Shared._Control
 {
+    using Model.Shared._General;
     using System.Collections.Generic;
-    using Wimym.Model.Shared._General;
 
     public class AccountTypeDto
     {

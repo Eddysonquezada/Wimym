@@ -1,8 +1,7 @@
 ﻿namespace Wimym.Model.Domain._Control
 {
-    using Wimym.Model.Domain._General;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    using Wimym.Model.Domain._General;
 
     public class Currency
     {

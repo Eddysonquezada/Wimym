@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using Wimym.Model.Domain._Control;
-
-namespace Wimym.Model.Domain.DbHelper
+﻿namespace Wimym.Model.Domain.DbHelper
 {
+    using Model.Domain._Control;
+    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class AuditEntity
     {
         //public string Code { get; set; }
 
         //public string Name { get; set; }
-       
+
         //public string Description { get; set; }
 
         public DateTime? CreatedAt { get; set; }

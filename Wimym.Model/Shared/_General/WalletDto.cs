@@ -1,9 +1,7 @@
 ﻿namespace Wimym.Model.Shared._General
 {
-    using Wimym.Model.Domain._Control;
-    using Wimym.Model.Domain.DbHelper;
+    using Model.Domain._Control;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public class WalletDto  
     {       

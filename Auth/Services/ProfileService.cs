@@ -1,15 +1,14 @@
-﻿using IdentityServer4.Models;
-using IdentityServer4.Services;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Wimym.Model.Domain;
-
-namespace Auth.Services
+﻿namespace Auth.Services
 {
+    using IdentityServer4.Models;
+    using IdentityServer4.Services;
+    using Microsoft.AspNetCore.Identity;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using Wimym.Model.Domain._Control;
+
     public class ProfileService : IProfileService
     {
         protected UserManager<ApplicationUser> _userManager;

@@ -1,17 +1,17 @@
 ﻿namespace Wimym.DatabaseContext
 {
+    using Common;
+    using DatabaseContext.Config;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Model.Domain;
+    using Model.Domain._Control;
+    using Model.Domain._General;
+    using Model.Domain.DbHelper;
     using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Wimym.Common;
-    using Wimym.DatabaseContext.Config;
-    using Wimym.Model.Domain;
-    using Wimym.Model.Domain._Control;
-    using Wimym.Model.Domain._General;
-    using Wimym.Model.Domain.DbHelper;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -145,7 +145,7 @@
             modelBuilder.Entity<ApplicationUser>().HasQueryFilter(x => !x.Deleted);
             modelBuilder.Entity<Owner>().HasQueryFilter(x => !x.Deleted);
             modelBuilder.Entity<AccountingAccount>().HasQueryFilter(x => !x.Deleted);
-            modelBuilder.Entity<Operation>().HasQueryFilter(x => !x.Deleted);
+             modelBuilder.Entity<Operation>().HasQueryFilter(x => !x.Deleted);
             modelBuilder.Entity<Shop>().HasQueryFilter(x => !x.Deleted);
             modelBuilder.Entity<Tag>().HasQueryFilter(x => !x.Deleted);
             modelBuilder.Entity<Wallet>().HasQueryFilter(x => !x.Deleted);            

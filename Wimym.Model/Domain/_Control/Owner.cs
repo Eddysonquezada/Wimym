@@ -1,10 +1,10 @@
 ﻿namespace Wimym.Model.Domain._Control
 {
-    using Wimym.Model.Domain._General;
-    using Wimym.Model.Domain.DbHelper;
+
+    using Model.Domain.DbHelper;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Model.Domain._General;
 
     //Use to be Author
     public class Owner :AuditEntity, ISoftDeleted

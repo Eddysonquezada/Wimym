@@ -1,9 +1,7 @@
 ﻿namespace Wimym.Model.Shared._General
 {
-    using Wimym.Model.Domain._Control;
-    using Wimym.Model.Domain.DbHelper;
+    using Model.Domain._Control;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public class TagDto  
     {       
@@ -22,7 +20,7 @@
         public  Owner Owner { get; set; }
         public int OwnerId { get; set; }
 
-        public  List<OperationDto> Operations { get; set; }
+         public  List<OperationDto> Operations { get; set; }
        
        // public virtual ICollection<BudgetDetail> BudgetDetails { get; set; }
     }
@@ -59,7 +57,7 @@
        // public Owner Owner { get; set; }
         public string Owner { get; set; }
 
-        public List<OperationDto> Operations { get; set; }
+      // public List<OperationDto> Operations { get; set; }
 
         // public virtual ICollection<BudgetDetail> BudgetDetails { get; set; }
     }

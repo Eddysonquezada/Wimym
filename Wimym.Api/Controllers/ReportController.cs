@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Model.Shared;
-using Services;
-
-namespace Core.Api.Controllers
+﻿namespace Core.Api.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Services;
+    using System.Threading.Tasks;
+    using Wimym.Model.Shared.Helper;
+
     [Authorize(Roles = "Admin")]
     public class ReportController : Controller
     {

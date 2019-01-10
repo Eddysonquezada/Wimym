@@ -1,9 +1,8 @@
 ﻿namespace Wimym.Model.Domain._General
 {
-    using Wimym.Model.Domain._Control;
-    using Wimym.Model.Domain.DbHelper;
+    using Model.Domain._Control;
+    using Model.Domain.DbHelper;
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     public class Operation : AuditEntity, ISoftDeleted
     {
@@ -35,8 +34,8 @@
         public   AccountingAccount Account { get; set; }
         public int AccountId { get; set; } //  [Display(Name = "Cuenta")]        
         // public int? AccountId2 { get; set; } //[Display(Name = "Destination (Target)")]
-        public AccountingAccount AccountDest { get; set; }
-        public int AccountDestId { get; set; }
+        //public AccountingAccount AccountDest { get; set; }
+       // public int? AccountDestId { get; set; }
 
         public   Tag Tag { get; set; }
         public int TagId { get; set; } // [Display(Name = "Label (Concept)")]
@@ -44,8 +43,8 @@
         public   Origin Origin { get; set; }
         public int OriginId { get; set; }
 
-        public ApplicationUser User { get; set; }
-        public string UserId { get; set; }
+        //public ApplicationUser User { get; set; }
+        //public string UserId { get; set; }
 
     }
 }

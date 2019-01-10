@@ -1,8 +1,7 @@
 ﻿namespace Wimym.Model.Domain._Control
 {
-    using Wimym.Model.Domain._General;
+    using Model.Domain._General;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public class Origin
     {

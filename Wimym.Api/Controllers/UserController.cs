@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Model.Shared;
-using Wimym.Model.Shared;
-using Wimym.Services;
-
-namespace Wimym.Api.Controllers
+﻿namespace Wimym.Api.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
+    using Model.Shared._Control;
+    using Model.Shared.Helper;
+    using Services;
+    using System.IO;
+    using System.Threading.Tasks;
+
     [Authorize]
     public class UserController : Controller
     {

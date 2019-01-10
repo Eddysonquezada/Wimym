@@ -1,7 +1,7 @@
 ﻿namespace Wimym.Model.Shared._Control
 {
+    using Model.Shared._General;
     using System.Collections.Generic;
-    using Wimym.Model.Shared._General;
 
     public class OriginDto
     {
@@ -17,7 +17,7 @@
 
         public List<AccountTypeDto> AccountTypes { get; set; }
 
-        public List<OperationDto> Operations { get; set; }
+       // public List<OperationDto> Operations { get; set; }
     }
 
     public class OriginGetFilter

@@ -1,9 +1,8 @@
 ﻿namespace Wimym.Model.Domain._Control
 {
-    using Wimym.Model.Domain.DbHelper;
     using Microsoft.AspNetCore.Identity;
-    using Wimym.Model.Domain._General;
-    using System.Collections.Generic;
+    using Model.Domain.DbHelper;
+
 
     public class ApplicationUser : IdentityUser, ISoftDeleted
     {
@@ -40,6 +39,6 @@
 
         //public bool IsRemembered { get; set; }
 
-        public ICollection<Operation> Operations { get; set; }
+       // public ICollection<Operation> Operations { get; set; }
     }
 }

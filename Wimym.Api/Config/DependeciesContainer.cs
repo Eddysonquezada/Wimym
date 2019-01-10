@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Wimym.Common;
-using Wimym.Services;
-
-namespace Wimym.Api.Config
+﻿namespace Wimym.Api.Config
 {
+    using Common;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Services;
+
     public static class DependeciesContainer
     {
         public static void AddMyDependencies(
@@ -25,10 +20,10 @@ namespace Wimym.Api.Config
 
             #region My services
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IPhotoService, PhotoService>();
-            services.AddScoped<ILikeService, LikeService>();
-            services.AddScoped<ICommentService, CommentService>();
-            services.AddScoped<IReportService, ReportService>();
+            //services.AddScoped<IPhotoService, PhotoService>();
+            //services.AddScoped<ILikeService, LikeService>();
+            //services.AddScoped<ICommentService, CommentService>();
+            //services.AddScoped<Services.IReportService, ReportService>();
             #endregion 
         }
     }

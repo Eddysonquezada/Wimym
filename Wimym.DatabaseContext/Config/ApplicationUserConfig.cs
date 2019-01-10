@@ -1,12 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Wimym.Model.Domain;
-using Wimym.Model.Domain._Control;
-
-namespace Wimym.DatabaseContext.Config
+﻿namespace Wimym.DatabaseContext.Config
 {
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Model.Domain._Control;
+
     public class ApplicationUserConfig
     {
         public ApplicationUserConfig(EntityTypeBuilder<ApplicationUser> entityBuilder)

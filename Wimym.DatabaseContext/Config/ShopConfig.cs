@@ -1,8 +1,7 @@
 ﻿namespace Wimym.DatabaseContext.Config
 {
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Wimym.Model.Domain;
-    using Wimym.Model.Domain._Control;
+    using Model.Domain;
 
     public class ShopConfig
     {

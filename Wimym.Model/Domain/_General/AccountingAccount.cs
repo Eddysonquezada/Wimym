@@ -1,9 +1,8 @@
 ﻿namespace Wimym.Model.Domain._General
 {
-    using Wimym.Model.Domain._Control;
-    using Wimym.Model.Domain.DbHelper;
+    using Model.Domain._Control;
+    using Model.Domain.DbHelper;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public class AccountingAccount : AuditEntity, ISoftDeleted
     {
@@ -36,7 +35,9 @@
         public  AccountType AccountType { get; set; }
         public int AccountTypeId { get; set; }
 
-        public  ICollection<Operation> Operations { get; set; }              
+         public  ICollection<Operation> Operations { get; set; }
+
+        //public ICollection<Operation> Operations { get; set; }
 
     }
 }

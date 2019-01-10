@@ -1,16 +1,16 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Wimym.DatabaseContext;
-using Wimym.Model.Shared._Control;
-using Wimym.Model.Shared.Helper;
-
-namespace Wimym.Services
+﻿namespace Wimym.Services
 {
+    using AutoMapper;
+    using Microsoft.EntityFrameworkCore;
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using DatabaseContext;
+    using Model.Shared._Control;
+    using Model.Shared.Helper;
+
     public interface IUserService
     {
         Task<UserDto> Get(string id);
@@ -139,8 +139,8 @@ namespace Wimym.Services
                 if (model.Lastname != null)
                     user.Lastname = model.Lastname;
 
-                if (model.AboutUs != null)
-                    user.AboutMe = model.AboutUs;
+                if (model.AboutMe != null)
+                    user.AboutMe = model.AboutMe;
 
                 if (model.Image != null)
                     user.Image = model.Image;

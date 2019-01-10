@@ -1,8 +1,7 @@
 ﻿namespace Wimym.Model.Domain._Control
 {
-    using Wimym.Model.Domain._General;
+    using Model.Domain._General;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public class Periodicity
     {
@@ -18,7 +17,7 @@
         //[Display(Name = "Periodicity")]
         public string Name { get; set; }
 
-        public ICollection<Operation> Operations { get; set; }
+         public ICollection<Operation> Operations { get; set; }
 
         // public  ICollection<AccountingAccount> AccountingAccounts { get; set; }
 

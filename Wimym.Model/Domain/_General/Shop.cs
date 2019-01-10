@@ -1,10 +1,10 @@
 ﻿namespace Wimym.Model.Domain
 {
-    using Wimym.Model.Domain._Control;
-    using Wimym.Model.Domain.DbHelper;
+
+    using Model.Domain._Control;
+    using Model.Domain.DbHelper;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public class Shop : AuditEntity, ISoftDeleted
     {
