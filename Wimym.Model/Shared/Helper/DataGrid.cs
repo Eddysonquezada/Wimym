@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Model.Shared
+namespace Wimym.Model.Shared.Helper
 {
     /// <summary>
     /// Esta clase sería algo más robusto que lo tenemos actualmente como ApiFilter

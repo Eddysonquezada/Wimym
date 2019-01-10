@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Wimym.Model.Shared
+﻿namespace Wimym.Model.Shared._Control
 {
     public class UserListFilter
     {
@@ -21,7 +17,7 @@ namespace Wimym.Model.Shared
         public string Lastname { get; set; }
         public string Email { get; set; }
 
-        public string AboutUs { get; set; }
+        public string AboutMe { get; set; }
         public string Image { get; set; }
 
         public string SeoUrl { get; set; }
@@ -31,7 +27,7 @@ namespace Wimym.Model.Shared
     {
         public string Name { get; set; }
         public string Lastname { get; set; }
-        public string AboutUs { get; set; }
+        public string AboutMe { get; set; }
 
         public string Image { get; set; }
     }

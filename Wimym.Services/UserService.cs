@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Model.Shared;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Wimym.DatabaseContext;
-using Wimym.Model.Shared;
+using Wimym.Model.Shared._Control;
+using Wimym.Model.Shared.Helper;
 
 namespace Wimym.Services
 {
@@ -141,7 +140,7 @@ namespace Wimym.Services
                     user.Lastname = model.Lastname;
 
                 if (model.AboutUs != null)
-                    user.AboutUs = model.AboutUs;
+                    user.AboutMe = model.AboutUs;
 
                 if (model.Image != null)
                     user.Image = model.Image;

@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Model.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Wimym.Common;
-using Wimym.DatabaseContext.Config;
-using Wimym.Model.Domain;
-using Wimym.Model.Domain.DbHelper;
-
-namespace Wimym.DatabaseContext
+﻿namespace Wimym.DatabaseContext
 {
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Wimym.Common;
+    using Wimym.DatabaseContext.Config;
+    using Wimym.Model.Domain;
+    using Wimym.Model.Domain._Control;
+    using Wimym.Model.Domain._General;
+    using Wimym.Model.Domain.DbHelper;
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         private readonly ICurrentUserFactory _currentUser;
@@ -41,8 +40,18 @@ namespace Wimym.DatabaseContext
 
             //registering the configurations for all the classes
             new ApplicationUserConfig(modelBuilder.Entity<ApplicationUser>());
+            new AccountTypeConfig(modelBuilder.Entity<AccountType>());
+            new CurrencyConfig(modelBuilder.Entity<Currency>());
             new OriginConfig(modelBuilder.Entity<Origin>());
-
+            new OwnerConfig(modelBuilder.Entity<Owner>());
+            new PeriodicityConfig(modelBuilder.Entity<Periodicity>());
+            new UserTypeConfig(modelBuilder.Entity<UserType>());
+            new AccountingAccountConfig(modelBuilder.Entity<AccountingAccount>());
+            new OperationConfig(modelBuilder.Entity<Operation>());
+            new ShopConfig(modelBuilder.Entity<Shop>());
+            new TagConfig(modelBuilder.Entity<Tag>());
+            new WalletConfig(modelBuilder.Entity<Wallet>());
+           
             ////if I want to remove the AspNet prefix from the identity tables
             //foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             //{
@@ -55,9 +64,16 @@ namespace Wimym.DatabaseContext
         }
 
         public DbSet<Origin> Origins { get; set; }
-        public DbSet<CommentsPerPhoto> CommentsPerPhoto { get; set; }
-        public DbSet<LikesPerPhoto> LikesPerPhoto { get; set; }
-        public DbSet<Photo> Photos { get; set; }
+        public DbSet<AccountType> AccountTypes { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Owner> Owners { get; set; }
+        public DbSet<Periodicity> Periodicities { get; set; }
+        public DbSet<UserType> UserTypes { get; set; }
+        public DbSet<AccountingAccount> AccountingAccounts { get; set; }
+        public DbSet<Operation> Operations { get; set; }
+        public DbSet<Shop> Shops { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Wallet> Wallets { get; set; }        
 
         public override int SaveChanges()
         {
@@ -87,14 +103,21 @@ namespace Wimym.DatabaseContext
                 )
             );
 
+            var user = new CurrentUser();
+
+            if (_currentUser != null)
+            {
+                user = _currentUser.Get;
+            }
+
             foreach (var entry in modifiedEntries)
             {
                 var entity = entry.Entity as AuditEntity;
 
                 if (entity != null)
                 {
-                    var date = DateTime.UtcNow;
-                    string userId = null;
+                    var date = DateTime.Now;
+                    string userId = user.UserId;
 
                     if (entry.State == EntityState.Added)
                     {
@@ -120,9 +143,12 @@ namespace Wimym.DatabaseContext
         {
             #region SoftDeleted
             modelBuilder.Entity<ApplicationUser>().HasQueryFilter(x => !x.Deleted);
-            modelBuilder.Entity<Origin>().HasQueryFilter(x => !x.Deleted);
-            modelBuilder.Entity<LikesPerPhoto>().HasQueryFilter(x => !x.Deleted);
-            modelBuilder.Entity<Photo>().HasQueryFilter(x => !x.Deleted);
+            modelBuilder.Entity<Owner>().HasQueryFilter(x => !x.Deleted);
+            modelBuilder.Entity<AccountingAccount>().HasQueryFilter(x => !x.Deleted);
+            modelBuilder.Entity<Operation>().HasQueryFilter(x => !x.Deleted);
+            modelBuilder.Entity<Shop>().HasQueryFilter(x => !x.Deleted);
+            modelBuilder.Entity<Tag>().HasQueryFilter(x => !x.Deleted);
+            modelBuilder.Entity<Wallet>().HasQueryFilter(x => !x.Deleted);            
             #endregion
         }
 

@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-
-namespace Model.Shared
+﻿namespace Wimym.Model.Shared.Helper
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+
     public class FileDto
     {
         public string Content { get; set; }
@@ -22,8 +22,7 @@ namespace Model.Shared
         /// </summary>
         public string Extension
         {
-            get
-            {
+            get {
                 return Name.Split('.').ToList().Last();
             }
         }
@@ -33,8 +32,7 @@ namespace Model.Shared
         /// </summary>
         public string UniqueName
         {
-            get
-            {
+            get {
                 return $"{Guid.NewGuid().ToString().ToLower()}.{Extension}";
             }
         }

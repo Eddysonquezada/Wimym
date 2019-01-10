@@ -1,4 +1,4 @@
-﻿namespace Model.Shared
+﻿namespace Wimym.Model.Shared.Helper
 {
     public class ApiFilter
     {
@@ -12,7 +12,7 @@
 
         public ApiFilter()
         {
-            Take = 20;
+            Take = 25;
         }
     }
 }

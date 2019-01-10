@@ -1,4 +1,4 @@
-﻿namespace Model.Shared
+﻿namespace Wimym.Model.Shared.Helper
 {
     public class GreaterUsersParticipationDto
     {
