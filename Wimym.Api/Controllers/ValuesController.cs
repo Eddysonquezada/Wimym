@@ -3,9 +3,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-     [Authorize]
-    [Route("api/[controller]")] //
-   // [Route("[controller]")]
+    [Authorize]
+   // [Route("api/[controller]")] // // 
+    [Route("[controller]")]
     [ApiController]
     public class ValuesController : Controller
     {
