@@ -2,30 +2,33 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityModel;
+using IdentityServer4.Services;
+using IdentityServer4.Stores;
+using IdentityServer4.Test;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using IdentityServer4.Events;
+using IdentityServer4.Extensions;
+using IdentityServer4.Models;
+using Auth.Models;
+using Microsoft.AspNetCore.Identity;
+
+using Common.MyExtensions;
+using Microsoft.EntityFrameworkCore;
+using Wimym.Model.Domain._Control;
+using Wimym.DatabaseContext;
+using Wimym.Model.Domain;
+
 namespace Auth.Controllers
 {
-    using Auth.Models;
-    using Common.MyExtensions;
-    using IdentityModel;
-    using IdentityServer4.Events;
-    using IdentityServer4.Extensions;
-    using IdentityServer4.Services;
-    using IdentityServer4.Stores;
-    using IdentityServer4.Test;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Claims;
-    using System.Security.Principal;
-    using System.Threading.Tasks;
-    using Wimym.DatabaseContext;
-    using Wimym.Model.Domain._Control;
-
     /// <summary>
     /// This sample controller implements a typical login/logout/provision workflow for local and external accounts.
     /// The login service encapsulates the interactions with the user data store. This data store is in-memory only and cannot be used for production!
@@ -88,13 +91,38 @@ namespace Auth.Controllers
                     seoUrl = $"{seoUrl}-{total}";
                 }
 
+                var owner = new Owner
+                {
+                    Code = $"{ model.Name.Substring(0, 1) }{model.Lastname }",
+                    Name = model.Name,
+                    LastName = model.Lastname,
+                    Email = model.Email
+                };             
+
+                _context.Add(owner);
+                
+                await _context.SaveChangesAsync();
+
+                var shop = new Shop
+                {
+                    OwnerId = owner.OwnerId,
+                    Name = "Principal",
+                    Email = model.Email
+                };
+
+                _context.Add(shop);
+                
+                await _context.SaveChangesAsync();
+
                 var user = new ApplicationUser
                 {
+                    ShopId = shop.ShopId,
                     UserName = model.Email,
                     Email = model.Email,
                     SeoUrl = seoUrl,
                     Name = model.Name,
-                    Lastname = model.Lastname
+                    Lastname = model.Lastname,
+                    UserTypeId=1,
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
