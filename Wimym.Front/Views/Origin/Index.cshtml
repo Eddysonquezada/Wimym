@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Wimym.Model.Shared._Control.OriginDto>
+
+@{
+    ViewData["Title"] = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+          Code
+        </th>
+        <th>
+           Name
+        </th>
+        <th>
+         Description
+        </th>
+        <th>
+          Simbol
+        </th>
+
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Simbol)
+            </td>
+            <td>
+                @*<a class="btn btn-warning" href="@Url.Action("Edit", "Laboratories", new { area = "Medicals",   })"> <span class="fa fa-pencil-square-o"></span> Editar</a>
+                <a class="btn btn-info" href="@Url.Action("Details", "Laboratories", new {area = "Medicals",  })"> <span class="fa fa-info"></span> Detalles</a>
+                <a class="btn btn-danger" href="@Url.Action("Delete", "Laboratories", new {area = "Medicals", id =item.LaboratoryId})" onclick="return confirm('Esta seguro que desea eliminar este registro?')"> <span class="fa fa-trash-o"></span> Eliminar</a>*@
+            </td>
+        </tr>
+    }
+
+</table>
+

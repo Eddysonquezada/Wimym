@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="CommentService.cs" />
+    <Compile Remove="LikeService.cs" />
+    <Compile Remove="PhotoService.cs" />
+    <Compile Remove="ReportService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wimym.DatabaseContext\Wimym.DatabaseContext.csproj" />
+    <ProjectReference Include="..\Wimym.Model\Wimym.Model.csproj" />
+  </ItemGroup>
+
+</Project>
