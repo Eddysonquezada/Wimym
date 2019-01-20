@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Wymim.Domain.Helper;
 
 namespace Wymim.Domain
 {
-    public class Account
+    public class Account: AuditEntity
     {
         [Key]
         public int AccountId { get; set; }

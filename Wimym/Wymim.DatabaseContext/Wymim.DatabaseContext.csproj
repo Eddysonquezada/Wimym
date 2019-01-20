@@ -11,7 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Wymim.Common\Wymim.Common.csproj" />
     <ProjectReference Include="..\Wymim.Domain\Wymim.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Migrations\20190113173553_[AddingUser].Designer.cs">
+      <DependentUpon>20190113173553_[AddingUser].cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Wymim.Domain.Helper;
 
 namespace Wymim.Domain
 {
-    public class Wallet
+    public class Wallet: AuditEntity
     {
         //first lets especify the Identifier, or the primary key, its a good 
         //practice use ID, Id, or the Model name Pluss Id, you can use what 

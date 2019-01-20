@@ -7,12 +7,25 @@
   <ItemGroup>
     <Compile Remove="Domain\ApplicationUser.cs" />
     <Compile Remove="Domain\CommentsPerPhoto.cs" />
+    <Compile Remove="Domain\DbHelper\AuditEntity.cs" />
     <Compile Remove="Domain\LikesPerPhoto.cs" />
     <Compile Remove="Domain\Origin.cs" />
     <Compile Remove="Domain\Photo.cs" />
+    <Compile Remove="Domain\_Control\AccountType.cs" />
+    <Compile Remove="Domain\_Control\ApplicationUser.cs" />
+    <Compile Remove="Domain\_Control\Currency.cs" />
+    <Compile Remove="Domain\_Control\Origin.cs" />
+    <Compile Remove="Domain\_Control\Owner.cs" />
+    <Compile Remove="Domain\_Control\Periodicity.cs" />
     <Compile Remove="Domain\_Control\Status.cs" />
+    <Compile Remove="Domain\_Control\UserType.cs" />
+    <Compile Remove="Domain\_General\AccountingAccount.cs" />
     <Compile Remove="Domain\_General\Budget.cs" />
     <Compile Remove="Domain\_General\BudgetDetail.cs" />
+    <Compile Remove="Domain\_General\Operation.cs" />
+    <Compile Remove="Domain\_General\Shop.cs" />
+    <Compile Remove="Domain\_General\Tag.cs" />
+    <Compile Remove="Domain\_General\Wallet.cs" />
     <Compile Remove="Shared\CommentDto.cs" />
     <Compile Remove="Shared\LikeDto.cs" />
     <Compile Remove="Shared\PhotoDto.cs" />
@@ -25,6 +38,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain\_Control\" />
+    <Folder Include="Domain\_General\" />
   </ItemGroup>
 
 </Project>

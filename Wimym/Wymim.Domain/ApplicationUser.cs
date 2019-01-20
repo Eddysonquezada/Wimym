@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Wymim.Domain
 {
-   public class ApplicationUser
+   public class ApplicationUser: IdentityUser
     {
         [Required]
         [MaxLength(50)]
