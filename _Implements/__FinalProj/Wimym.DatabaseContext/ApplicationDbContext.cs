@@ -27,16 +27,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // ...
-
-            var cascadeFKs = modelBuilder.Model.GetEntityTypes()
-                .SelectMany(t => t.GetForeignKeys())
-                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
-
-            foreach (var fk in cascadeFKs)
-                fk.DeleteBehavior = DeleteBehavior.Restrict;
-
-            base.OnModelCreating(modelBuilder);
+           
 
             //registering the configurations for all the classes
             new ApplicationUserConfig(modelBuilder.Entity<ApplicationUser>());
@@ -66,12 +57,7 @@
         public DbSet<Origin> Origins { get; set; }
         public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<Currency> Currencies { get; set; }
-        public DbSet<Owner> Owners { get; set; }
-        public DbSet<Periodicity> Periodicities { get; set; }
-        public DbSet<UserType> UserTypes { get; set; }
-        public DbSet<AccountingAccount> AccountingAccounts { get; set; }
-        public DbSet<Operation> Operations { get; set; }
-        public DbSet<Shop> Shops { get; set; }
+   
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Wallet> Wallets { get; set; }        
 
