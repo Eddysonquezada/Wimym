@@ -1,14 +1,14 @@
 ﻿namespace Wimym.Back.Data
 {
-    using Back.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Wimym.Backend.Models;
+    using Wimym.Web.Data;
+    using Wimym.Web.Data.Entities;
 
     public class DI_BasePageModel : Controller
     {
-        protected ApplicationDbContext Context
+        protected DataContext Context
         {
             get;
         }
@@ -22,7 +22,7 @@
         }
 
         public DI_BasePageModel(
-        ApplicationDbContext context,
+        DataContext context,
         IAuthorizationService authorizationService,
         UserManager<ApplicationUser> userManager) : base()
         {

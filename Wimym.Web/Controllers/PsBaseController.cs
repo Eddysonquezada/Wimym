@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Wimym.Web.Controllers
+﻿namespace Wimym.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     public class PsBaseController : Controller
     {
         public IActionResult Index()

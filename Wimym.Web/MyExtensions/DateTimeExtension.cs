@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Common.MyExtensions
+﻿namespace Wimym.Web.MyExtensions
 {
+    using System;
+
     public static class DateTimeExtension
     {
         public static string UseMyCustomFormat(this System.DateTime dt)

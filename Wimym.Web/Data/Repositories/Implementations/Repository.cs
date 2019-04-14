@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
-using Wimym.Web.Data.Entities;
-using Wimym.Web.Data.Repositories.Contracts;
-
-namespace Wimym.Web.Data.Repositories.Implementations
+﻿namespace Wimym.Web.Data.Repositories.Implementations
 {
+    using Microsoft.EntityFrameworkCore;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Wimym.Web.Data.Entities;
+    using Wimym.Web.Data.Repositories.Contracts;
+
     public class Repository<T> : IRepository<T> where T : class, IEntity
     {
         private readonly DataContext _context;

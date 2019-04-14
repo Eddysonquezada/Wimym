@@ -1,22 +1,23 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using Wimym.Web.Helpers;
-using Wimym.Web.Models;
-
-namespace Wimym.Web.Controllers
+﻿namespace Wimym.Web.Controllers
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.IdentityModel.Tokens;
+    using System;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Wimym.Web.Data.Entities;
+    using Wimym.Web.Helpers;
+    using Wimym.Web.Models;
+
     public class AccountController : Controller
     {
         private readonly IUserHelper userHelper;
-         private readonly IMailHelper mailHelper;
+        private readonly IMailHelper mailHelper;
         //private readonly ICountryRepository countryRepository;
         private readonly IConfiguration configuration;
 
@@ -26,8 +27,8 @@ namespace Wimym.Web.Controllers
             IConfiguration configuration)
         {
             this.userHelper = userHelper;
-             this.mailHelper = mailHelper;
-          //   this.countryRepository = countryRepository;
+            this.mailHelper = mailHelper;
+            //   this.countryRepository = countryRepository;
             this.configuration = configuration;
         }
 
@@ -87,7 +88,7 @@ namespace Wimym.Web.Controllers
                 var user = await this.userHelper.GetUserByEmailAsync(model.Username);
                 if (user == null)
                 {
-                  //  var city = await this.countryRepository.GetCityAsync(model.CityId);
+                    //  var city = await this.countryRepository.GetCityAsync(model.CityId);
 
                     user = new ApplicationUser
                     {
@@ -95,7 +96,7 @@ namespace Wimym.Web.Controllers
                         Lastname = model.LastName,
                         Email = model.Username,
                         UserName = model.Username,
-                        Address = model.Address,
+                       // Address = model.Address,
                         PhoneNumber = model.PhoneNumber,
                         //CityId = model.CityId,
                         //City = city
@@ -115,9 +116,9 @@ namespace Wimym.Web.Controllers
                         token = myToken
                     }, protocol: HttpContext.Request.Scheme);
 
-                  this.mailHelper.SendMail(model.Username, "911 Reactions Email confirmation", $"<h1>911 Reactions Email confirmation</h1>" +
-                                                                                        $"Para permitir el acceso a tu usuario, " +
-                                                                                        $"porfavor, has click en este link:</br></br><a href = \"{tokenLink}\">Confirmar Correo</a>");
+                    this.mailHelper.SendMail(model.Username, "911 Reactions Email confirmation", $"<h1>911 Reactions Email confirmation</h1>" +
+                                                                                          $"Para permitir el acceso a tu usuario, " +
+                                                                                          $"porfavor, has click en este link:</br></br><a href = \"{tokenLink}\">Confirmar Correo</a>");
                     this.ViewBag.Message = "Las instrucciones para permitir el acceso a tu usuario, han sido enviadas a tu correo.";
                     return this.View(model);
                 }
@@ -137,7 +138,7 @@ namespace Wimym.Web.Controllers
             {
                 model.FirstName = user.Name;
                 model.LastName = user.Lastname;
-                model.Address = user.Address;
+               // model.Address = user.Address;
                 model.PhoneNumber = user.PhoneNumber;
 
                 //var city = await this.countryRepository.GetCityAsync(user.CityId);
@@ -167,11 +168,11 @@ namespace Wimym.Web.Controllers
                 var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 if (user != null)
                 {
-                  //  var city = await this.countryRepository.GetCityAsync(model.CityId);
+                    //  var city = await this.countryRepository.GetCityAsync(model.CityId);
 
                     user.Name = model.FirstName;
                     user.Lastname = model.LastName;
-                    user.Address = model.Address;
+                  //  user.Address = model.Address;
                     user.PhoneNumber = model.PhoneNumber;
                     //user.CityId = model.CityId;
                     //user.City = city;

@@ -47,7 +47,6 @@
         public DbSet<Origin> Origins { get; set; }
         public DbSet<Status> Status { get; set; }
         public DbSet<Wallet> Wallets { get; set; }
-
         public DbSet<Reaction> Reactions { get; set; }
     }
 }

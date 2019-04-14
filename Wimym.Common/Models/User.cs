@@ -3,7 +3,7 @@
     using Newtonsoft.Json;
     using System;
 
-    public partial class ApplicationUser
+    public partial class User
     {
         [JsonProperty("name")]
         public string Name { get; set; }

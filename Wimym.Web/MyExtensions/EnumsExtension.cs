@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace Common.MyExtensions
+﻿namespace Wimym.Web.MyExtensions
 {
+    using System;
+    using System.ComponentModel;
+
     public static class EnumsExtension
     {
         public static int ToInt32(this Enum type)

@@ -1,8 +1,7 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
-
-namespace Common.MyExtensions
+﻿namespace Wimym.Web.MyExtensions
 {
+    using System.Text.RegularExpressions;
+
     public static class StringExtension
     {
         public static string Sluglify(this string value)

@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Wimym.Web.Data;
-using Wimym.Web.Data.Repositories.Contracts;
-using Wimym.Web.Data.Repositories.Implementations;
-using Wimym.Web.Helpers;
-using Wimym.Web.Models;
-
-namespace Wimym.Web
+﻿namespace Wimym.Web
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.IdentityModel.Tokens;
+    using System.Text;
+    using Wimym.Web.Data;
+    using Wimym.Web.Data.Entities;
+    using Wimym.Web.Data.Repositories.Contracts;
+    using Wimym.Web.Data.Repositories.Implementations;
+    using Wimym.Web.Helpers;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -93,7 +88,7 @@ namespace Wimym.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                 app.UseHsts();
+                app.UseHsts();
             }
 
             app.UseStatusCodePagesWithReExecute("/error/{0}");

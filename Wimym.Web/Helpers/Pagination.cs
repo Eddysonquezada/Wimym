@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Wimym.Web.Helpers
+﻿namespace Wimym.Web.Helpers
 {
     using Microsoft.EntityFrameworkCore;
     using System;

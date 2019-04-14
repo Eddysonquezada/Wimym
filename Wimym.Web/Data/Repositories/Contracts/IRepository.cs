@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-
-namespace Wimym.Web.Data.Repositories.Contracts
+﻿namespace Wimym.Web.Data.Repositories.Contracts
 {
-    
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public interface IRepository<T> where T : class
     {
         IQueryable<T> GetAll(string user);

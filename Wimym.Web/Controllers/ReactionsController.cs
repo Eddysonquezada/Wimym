@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Wimym.Web.Data.Repositories.Contracts;
-using Wimym.Web.Models;
-
-namespace Wimym.Web.Controllers
+﻿namespace Wimym.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Threading.Tasks;
+    using Wimym.Web.Data.Entities;
+    using Wimym.Web.Data.Repositories.Contracts;
+
     [Authorize]
     public class ReactionsController : Controller
     {
@@ -31,7 +31,7 @@ namespace Wimym.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Reaction model)
         {
-            model.Date=DateTime.UtcNow;
+            model.Date = DateTime.UtcNow;
             //model.ApplicationUser = User;
             if (this.ModelState.IsValid)
             {

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\UserService.cs" />
+    <Compile Remove="Models\ApplicationUser.cs" />
   </ItemGroup>
 
 
@@ -20,11 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wimym.Common\Wimym.Common.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

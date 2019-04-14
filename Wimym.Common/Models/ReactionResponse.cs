@@ -35,6 +35,6 @@
         public double? Latitude { get; set; }
 
         [JsonProperty("user")]
-        public ApplicationUser User { get; set; }
+        public User User { get; set; }
     }
 }

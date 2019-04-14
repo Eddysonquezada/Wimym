@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-
 namespace Wimym.Web.Helpers
 {
+    using System.Collections.Generic;
     /// <summary>
     /// Esta clase sería algo más robusto que lo tenemos actualmente como ApiFilter
     /// </summary>
@@ -15,16 +14,16 @@ namespace Wimym.Web.Helpers
 
         private DataGridResponse DataResponse = new DataGridResponse();
 
-        public void Initialize() 
+        public void Initialize()
         {
             /* Cantidad de registros por página */
             Page = Page - 1;
-        
+
             /* Desde que número de fila va a paginar */
-            if(Page > 0) Page = Page * RowsPerPage;
+            if (Page > 0) Page = Page * RowsPerPage;
         }
 
-        public void SetData(dynamic data, int total) 
+        public void SetData(dynamic data, int total)
         {
             DataResponse = new DataGridResponse
             {

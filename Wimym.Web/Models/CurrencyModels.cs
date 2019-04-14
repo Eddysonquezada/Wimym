@@ -193,9 +193,9 @@
 //{
 //    public class CurrencyModels
 //    {
-//        private readonly ApplicationDbContext _context;
+//        private readonly DataContext _context;
 
-//        public CurrencyModels(ApplicationDbContext context)
+//        public CurrencyModels(DataContext context)
 //        {
 //            this._context = context;
 //            // FilterData(1, "A");

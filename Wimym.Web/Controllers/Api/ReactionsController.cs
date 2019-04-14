@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Wimym.Web.Data.Repositories.Contracts;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Wimym.Web.Helpers;
-using Wimym.Web.Models; 
-//using Notif.Transversal.Models;
-
-namespace Wimym.Web.Controllers.Api
+﻿namespace Wimym.Web.Controllers.Api
 {
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
+    using Wimym.Web.Data.Entities;
+    using Wimym.Web.Data.Repositories.Contracts;
+    using Wimym.Web.Helpers;
+
+    //using Notif.Transversal.Models;
+
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -17,13 +18,13 @@ namespace Wimym.Web.Controllers.Api
         private readonly IUserHelper _userHelper;
         private readonly IReaction _reactionRepository;
 
-        public ReactionsController(IReaction reactionRepository,IUserHelper userHelper)
+        public ReactionsController(IReaction reactionRepository, IUserHelper userHelper)
         {
             _userHelper = userHelper;
             _reactionRepository = reactionRepository;
         }
 
-    
+
         [HttpGet]
         public IActionResult GetReactions()
         {
@@ -31,7 +32,7 @@ namespace Wimym.Web.Controllers.Api
         }
 
 
-       [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> PostReaction([FromBody] Wimym.Common.Models.ReactionResponse reaction)
         {
             if (!ModelState.IsValid)
@@ -41,7 +42,7 @@ namespace Wimym.Web.Controllers.Api
             ApplicationUser user;
             if (reaction.User != null)
             {
-                user= await _userHelper.GetUserByEmailAsync(reaction.User.Email);
+                user = await _userHelper.GetUserByEmailAsync(reaction.User.Email);
                 if (user == null)
                 {
                     return this.BadRequest("Invalid user");
@@ -61,7 +62,8 @@ namespace Wimym.Web.Controllers.Api
                 ApplicationUser = user
             };
 
-            var newProduct = await _reactionRepository.CreateAsync(entityReaction);
+              var newProduct = await _reactionRepository.CreateAsync(entityReaction);
+            //return Ok();
             return Ok(newProduct);
         }
 

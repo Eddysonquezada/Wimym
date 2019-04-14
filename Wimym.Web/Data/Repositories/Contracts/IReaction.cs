@@ -1,8 +1,8 @@
 ﻿namespace Wimym.Web.Data.Repositories.Contracts
 {
-    using Models;
     using System.Linq;
     using System.Threading.Tasks;
+    using Wimym.Web.Data.Entities;
 
     public interface IReaction : IRepository<Reaction>
     {

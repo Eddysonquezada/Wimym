@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Reaction>
+﻿@model IEnumerable<Wimym.Web.Data.Entities.Reaction>
 
     @{
     ViewData["Title"] = "Index";
@@ -13,7 +13,7 @@
                 @if (this.User.IsInRole("Admin"))
         {
                 <th>
-                    @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
+                    @*@Html.DisplayNameFor(model => model.ApplicationUser.FullName)*@
                 </th>
         }
                 <th>
@@ -41,7 +41,7 @@
                 @if (this.User.IsInRole("Admin"))
             {
                 <th>
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
+                    @*@Html.DisplayFor(modelItem => item.ApplicationUser.FullName)*@
                 </th>
             }
                 <td>

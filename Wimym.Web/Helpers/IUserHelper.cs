@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Identity;
     using Models;
     using System.Threading.Tasks;
+    using Wimym.Web.Data.Entities;
 
     public interface IUserHelper
     {

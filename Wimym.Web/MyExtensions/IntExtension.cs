@@ -1,4 +1,4 @@
-﻿namespace Common.MyExtensions
+﻿namespace Wimym.Web.MyExtensions
 {
     public static class IntExtension
     {

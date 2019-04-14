@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Wimym.Web.Data;
-using Wimym.Web.Data.Repositories.Contracts;
-using Wimym.Web.Helpers;
-using Wimym.Web.Models;
-
-namespace Wimym.Web.Controllers.Api
+﻿namespace Wimym.Web.Controllers.Api
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Wimym.Web.Data;
+    using Wimym.Web.Data.Entities;
+    using Wimym.Web.Data.Repositories.Contracts;
+    using Wimym.Web.Helpers;
+
     [Route("api/[controller]")]
     [ApiController]
     public class ReactionController : ControllerBase
@@ -17,7 +17,6 @@ namespace Wimym.Web.Controllers.Api
         private readonly DataContext _context;
         private readonly IUserHelper _userHelper;
         private readonly IReaction _reactionRepository;
-
 
         public ReactionController(DataContext context, IReaction reactionRepository, IUserHelper userHelper)
         {

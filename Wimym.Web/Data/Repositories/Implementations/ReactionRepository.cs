@@ -1,13 +1,12 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Wimym.Web.Models;
-using System.Linq;
-using System.Threading.Tasks;
-using Wimym.Web.Data.Repositories.Contracts;
-using Wimym.Web.Helpers;
-
-namespace Wimym.Web.Data.Repositories.Implementations
+﻿namespace Wimym.Web.Data.Repositories.Implementations
 {
+    using Microsoft.EntityFrameworkCore;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Wimym.Web.Data.Entities;
+    using Wimym.Web.Data.Repositories.Contracts;
+    using Wimym.Web.Helpers;
+
     public class ReactionRepository : Repository<Reaction>, IReaction
     {
         private readonly DataContext _context;
@@ -37,7 +36,7 @@ namespace Wimym.Web.Data.Repositories.Implementations
 
             _context.Reactions.Add(model);
             await _context.SaveChangesAsync();
-            
+
         }
 
         public async Task<IQueryable<Reaction>> GetReactionsAsync(string userName)
