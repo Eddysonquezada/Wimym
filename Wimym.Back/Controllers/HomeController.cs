@@ -10,10 +10,43 @@ namespace Wimym.Back.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICurrentUserFactory _currentUser;
+
+        public HomeController(
+            ICurrentUserFactory currentUser
+        )
+        {
+            _currentUser = currentUser;
+        }
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
+
+        //public class HomeController : Controller
+        //{
+        //    private readonly ICurrentUserFactory _currentUser;
+
+        //    public HomeController(
+        //        ICurrentUserFactory currentUser
+        //    )
+        //    {
+        //        _currentUser = currentUser;
+        //    }
+        //    public IActionResult Index()
+        //    {
+        //        return View();
+        //    }
+
+        //    public IActionResult Privacy()
+        //    {
+        //        return View();
+        //    }
+
+
+        //}
 
         public IActionResult Privacy()
         {

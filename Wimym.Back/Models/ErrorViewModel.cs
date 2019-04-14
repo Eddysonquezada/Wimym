@@ -1,6 +1,6 @@
 using System;
 
-namespace Wimym.Back.Models
+namespace Wimym.Backend.Models
 {
     public class ErrorViewModel
     {
