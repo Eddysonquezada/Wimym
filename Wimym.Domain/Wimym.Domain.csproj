@@ -1,7 +1,47 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Config\**" />
+    <Compile Remove="Data\**" />
+    <Compile Remove="Dtos\**" />
+    <Compile Remove="Entities\**" />
+    <Compile Remove="Helpers\**" />
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="MyExtensions\**" />
+    <Compile Remove="Repositories\**" />
+    <Compile Remove="Services\**" />
+    <Compile Remove="Shared\**" />
+    <EmbeddedResource Remove="Config\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Dtos\**" />
+    <EmbeddedResource Remove="Entities\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="MyExtensions\**" />
+    <EmbeddedResource Remove="Repositories\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="Shared\**" />
+    <None Remove="Config\**" />
+    <None Remove="Data\**" />
+    <None Remove="Dtos\**" />
+    <None Remove="Entities\**" />
+    <None Remove="Helpers\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="MyExtensions\**" />
+    <None Remove="Repositories\**" />
+    <None Remove="Services\**" />
+    <None Remove="Shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ApplicationDbContext.cs" />
+    <Compile Remove="ApplicationDbContextx.cs" />
+    <Compile Remove="CurrentUserFactory.cs" />
+    <Compile Remove="DataContext.cs" />
+  </ItemGroup>
 
 </Project>

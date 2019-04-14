@@ -1,17 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using Wimym.Common;
-using Wimym.Front.Config;
-using Wimym.Model.Shared;
-
-namespace Wimym.Front.Service
+﻿namespace Wimym.Front.Service
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class ApiService
     {
         //ICurrentUserFactory _currentUser;
@@ -43,9 +36,9 @@ namespace Wimym.Front.Service
         {
             try
             {
-                var urlBase = SpaParameters.ApiUrl.Substring(0, SpaParameters.ApiUrl.Length-1);// Configuration["Api:Url"];
+                var urlBase = SpaParameters.ApiUrl.Substring(0, SpaParameters.ApiUrl.Length - 1);// Configuration["Api:Url"];
                 var client = new HttpClient();
-                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
                 client.BaseAddress = new Uri(urlBase);
                 var url = string.Format("{0}{1}{2}", urlBase, servicePrefix, controller);//, id);
                 var response = await client.GetAsync(url);
