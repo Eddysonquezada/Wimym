@@ -10,6 +10,7 @@
     public class UserRol
     {
         public List<SelectListItem> userRols;
+
         public UserRol()
         {
             userRols = new List<SelectListItem>();

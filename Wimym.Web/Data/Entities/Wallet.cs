@@ -3,10 +3,12 @@
     using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Wimym.Web.Data.DbHelper;
+
     // using Wimym.Domain.DataEntities.Configuration;
 
     //Personal Money, Bussineess 1, Bussiness 2, Wife Money
-    public class Wallet
+    public class Wallet : AuditEntity
     {
         public int Id { get; set; }
 
@@ -29,15 +31,7 @@
         //public decimal Amount2 { get; set; }
         //public decimal PreviousAmount { get; set; }
 
-        //[Display(Name = "Usuario")]
-        //public int UserId { get; set; }
-
-        //  public int OwnerId { get; set; }
-
-        //public string UserId { get; set; }
-
-        //[JsonIgnore]
-        //public virtual User User { get; set; }
+        public Owner Owner { get; set; }
 
         public ICollection<Account> Accounts { get; set; }
 

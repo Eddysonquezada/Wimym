@@ -94,7 +94,7 @@
 
                 // Condiciones
                 query = query.Where(x => _filter.UserId == null || x.Id == _filter.UserId);
-                query = query.Where(x => _filter.SeoUrl == null || x.SeoUrl == _filter.SeoUrl);
+               // query = query.Where(x => _filter.SeoUrl == null || x.SeoUrl == _filter.SeoUrl);
 
                 result = Mapper.Map<UserDto>(
                     await query.SingleAsync()
@@ -139,8 +139,8 @@
                 if (model.Lastname != null)
                     user.Lastname = model.Lastname;
 
-                if (model.AboutUs != null)
-                    user.AboutUs = model.AboutUs;
+                //if (model.AboutUs != null)
+                //    user.AboutUs = model.AboutUs;
 
                 if (model.Image != null)
                     user.Image = model.Image;

@@ -1,0 +1,248 @@
+﻿@{
+    ViewData["Title"] = "Resumen de Situacion Financiera";
+}
+
+<p>
+    <a 
+       class="btn btn-info" href="@Url.Action("Index", "Clasifications", new { area = "Expenses"   })"> <span class="fa fa-institution"></span> Administrar Carteras </a>
+    &nbsp; / &nbsp;
+    <a class="btn btn-info" href="@Url.Action("IndexTag", "Clasifications", new { area = "Expenses"   })"> <span class="fa fa-tags"></span> Administrar Etiquetas (Conceptos) </a>
+    &nbsp;  &nbsp;
+    @*<a class="btn btn-warning" href="@Url.Action("IndexBudget", "Clasifications", new { area = "Expenses"   })"> <span class="fa fa-info"></span> Administrar Presupuesto </a>*@
+</p>
+
+
+@{
+
+    decimal ingresos = 0;
+    decimal gastos = 0;
+    decimal deudas = 0;
+    decimal ahorros = 0;
+    decimal balance = 0;
+    bool hayTrans = false;
+}
+
+@*@foreach (var item in Model.Operations)*@
+@*@foreach (var wallet in Model.Wallets)
+{
+    foreach (var account in wallet.Accounts)
+    {
+        hayTrans = true;
+        if (account.AccountType.OriginId == 1)
+        {
+            ahorros += account.Amount;
+        }
+        else
+        {
+            deudas += account.Amount;
+        }
+        foreach (var operation in account.Operations)
+        {
+            if (operation.OriginId == 1)
+            {
+                if (account.AccountType.OriginId == 1)
+                {
+                    ingresos += operation.Amount;
+                }
+                else
+                {
+                    gastos += operation.Amount;
+                }
+
+            }
+            else
+            {
+                if (account.AccountType.OriginId == 1)
+                {
+                    gastos += operation.Amount;
+                }
+                else
+                {
+                    ingresos += operation.Amount;
+                }
+            }
+        }
+    }
+}*@
+
+@*// gastos += item.Amount2;*@
+
+@*}*@
+<div class="row">
+
+    <div class="col-md-3 col-sm-4 col-xs-4">
+        <section class="MySection">
+            <h4>Ahorros al Dia</h4>
+        </section>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-4">
+        <section class="MySection">
+            <h4>Deudas al Dia</h4>
+        </section>
+    </div>
+
+
+</div>
+
+@{
+    balance = ingresos - gastos;
+    //string ingresos2 = ingresos.ToString("C2");
+    //string gastos2 = gastos.ToString("C2");
+    //string deudas2 = deudas.ToString("C2");
+    //string ahorros2 = ahorros.ToString("C2");
+    //string balance2 = balance.ToString("C2");
+}
+
+<div class="row">
+
+    <div class="col-md-3 col-sm-4 col-xs-4" style="font-size: large; font-weight: bold; color: green; text-align: right">
+        @Html.Raw(ahorros.ToString("C2"))
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-4" style="font-size: large; font-weight: bold; color: red; text-align: right">
+        @Html.Raw(deudas.ToString("C2"))
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-3 col-sm-4 col-xs-4">
+        <section class="MySection">
+            <h4>Total de Ingresos</h4>
+        </section>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-4">
+        <section class="MySection">
+            <h4>Total de Gastos</h4>
+        </section>
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-3 col-sm-4 col-xs-4" style="font-size: large; font-weight: bold; color: green; text-align: right">
+        @Html.Raw(ingresos.ToString("C2"))
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-4" style="font-size: large; font-weight: bold; color: red; text-align: right">
+        @Html.Raw(gastos.ToString("C2"))
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-3 col-sm-4 col-xs-4">
+        <section class="MySection">
+            <h4>Balance General</h4>
+        </section>
+    </div>
+
+</div>
+
+<div class="row">
+
+    @{
+        if (balance > 0)
+        {
+            <div class="col-md-3 col-sm-4 col-xs-4" style="font-size: large; font-weight: bold; color: blue;text-align:right">
+                @Html.Raw(balance.ToString("C2"))
+            </div>
+        }
+        else
+        {
+            <div class="col-md-3 col-sm-4 col-xs-4" style="font-size: large; font-weight: bold; color: red;text-align:right">
+                @Html.Raw(balance.ToString("C2"))
+            </div>
+        }
+    }
+
+</div>
+<br />
+<p>
+    <a class="btn btn-success" href="@Url.Action("CreateTransaction", "Clasifications", new { area = "Expenses" , id =1 })"> <span class="fa fa-plus"></span> Registrar Ingreso </a>
+    &nbsp; / &nbsp;  <a class="btn btn-warning" href="@Url.Action("CreateTransactionM", "Clasifications", new { area = "Expenses" , id =3 })"> <span class="fa fa-minus"></span> Registrar Descuento (Reducir Ingresos) </a>
+    &nbsp; / &nbsp;  <a class="btn btn-danger" href="@Url.Action("CreateTransaction", "Clasifications", new { area = "Expenses" , id =2  })"> <span class="fa fa-minus"></span> Registrar Gasto </a>
+    &nbsp; / &nbsp; <a class="btn btn-warning" href="@Url.Action("CreateTransactionM", "Clasifications", new { area = "Expenses" , id =4 })"> <span class="fa fa-plus"></span> Registrar Pago (Reducir Gastos) </a>
+</p>
+
+
+<div class="row">
+
+    <section class="MySection" style="text-align:left">
+        <h4>Transacciones</h4>
+    </section>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+
+        @if (hayTrans == false)
+        {
+            <h2>No existen transacciones registradas aun :'(</h2>
+        }
+        else
+        {
+            <div class="scroller">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Fecha
+                            </th>
+                            <th>
+                                Tipo
+                            </th>
+                            <th>
+                                Cuenta
+                            </th>
+                            <th>
+                                Etiqueta
+                            </th>
+                            <th>
+                                Monto
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var wallet in Model.Wallets)
+                        {
+                            foreach (var account in wallet.Accounts)
+                            {
+                                foreach (var operation in account.Operations)
+                                {
+                                    @*<tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => operation.Date)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => operation.Origin.Simbol)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => operation.Account.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => operation.Tag.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => operation.Amount)
+                                        </td>
+                                        <td>
+                                             <a class="btn btn-warning" href="@Url.Action("EditOperation", "Clasifications", new { area = "Expenses", id = @item.a })"> <span class="fa fa-pencil-square-o "></span> Editar</a> 
+                                            <a class="btn btn-info" href="@Url.Action("DetailsOperation", "Clasifications", new {area = "Expenses", id = @operation.OperationId})"> <span class="fa fa-info"></span> Desglose de transacciones </a>
+                                            <a class="btn btn-danger" href="@Url.Action("DeleteOperation", "Clasifications", new {area = "Expenses", id = @operation.OperationId})" onclick="return confirm('Esta seguro que desea eliminar este registro?')"> <span class="fa fa-trash-o"></span> Eliminar </a>
+                                        </td>
+                                    </tr>*@
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+

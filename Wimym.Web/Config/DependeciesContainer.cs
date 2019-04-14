@@ -6,6 +6,8 @@
     using Wimym.Web.Interfaces;
     using Wimym.Web.Helpers;
     using Wimym.Web.Services;
+    using Wimym.Web.Data.Repositories.Contracts;
+    using Wimym.Web.Data.Repositories.Implementations;
 
     public static class DependeciesContainer
     {
@@ -14,6 +16,7 @@
             IConfiguration configuration
         )
         {
+
             #region Current User
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<ICurrentUserFactory, CurrentUserFactory>();
@@ -21,6 +24,11 @@
 
             #region My services
             services.AddScoped<IUserService, UserService>();
+            // services.AddTransient<SeedDb>();
+            services.AddScoped<IReaction, ReactionRepository>();
+            services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IMailHelper, MailHelper>();
+            services.AddTransient<IEmailSender, EmailSender>();
             //services.AddScoped<IPhotoService, PhotoService>();
             //services.AddScoped<ILikeService, LikeService>();
             //services.AddScoped<ICommentService, CommentService>();

@@ -1,7 +1,6 @@
-﻿using Wimym.Web.Helpers;
-
-namespace Wimym.Web.Interfaces
+﻿namespace Wimym.Web.Interfaces
 {
+    using Wimym.Web.Helpers;
     public interface ICurrentUserFactory
     {
         CurrentUser Get { get; }

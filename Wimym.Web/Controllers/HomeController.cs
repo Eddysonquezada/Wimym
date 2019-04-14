@@ -10,7 +10,7 @@
         {
             if (this.User.Identity.IsAuthenticated)
             {
-                return this.RedirectToAction("Index", "Reactions");
+                return this.RedirectToAction("Resume", "Situations");
             }
 
             return View();

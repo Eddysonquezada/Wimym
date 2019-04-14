@@ -22,8 +22,6 @@
         [Required(ErrorMessage = "This field is required")]
         [MaxLength(100, ErrorMessage = "Max length is {1} characters")]
         public string Description { get; set; }
-
-        public bool State { get; set; }
                
         public  Origin Origin { get; set; }
        

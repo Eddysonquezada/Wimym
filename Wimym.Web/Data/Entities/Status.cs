@@ -1,8 +1,8 @@
 ﻿namespace Wimym.Web.Data.Entities
 {
     using Newtonsoft.Json;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     //using Wimym.Domain.DataEntities.App;
 
     public class Status
@@ -16,7 +16,7 @@
         [MaxLength(50, ErrorMessage = "The maximun length for field {0} is {1} characters")]
         public string Table { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        //  public ICollection<User> Users { get; set; }
         //[JsonIgnore]
         //public virtual ICollection<Wallet> Wallets { get; set; }
 

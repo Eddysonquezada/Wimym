@@ -9,12 +9,11 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
+    using Swashbuckle.AspNetCore.Swagger;
     using System.Text;
+    using Wimym.Web.Config;
     using Wimym.Web.Data;
     using Wimym.Web.Data.Entities;
-    using Wimym.Web.Data.Repositories.Contracts;
-    using Wimym.Web.Data.Repositories.Implementations;
-    using Wimym.Web.Helpers;
 
     public class Startup
     {
@@ -27,10 +26,11 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddIdentity<ApplicationUser, IdentityRole>(cfg =>
             {
                 cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
-                cfg.SignIn.RequireConfirmedEmail = true;
+                cfg.SignIn.RequireConfirmedEmail = false;
                 cfg.User.RequireUniqueEmail = true;
                 cfg.Password.RequireDigit = false;
                 cfg.Password.RequiredUniqueChars = 0;
@@ -41,6 +41,10 @@
             })
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<DataContext>();
+
+            //     services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
+            //.AddDefaultUI(UIFramework.Bootstrap4)
+            //      .AddEntityFrameworkStores<DataContext>();
 
             services.AddAuthentication().AddCookie()
                 .AddJwtBearer(cfg =>
@@ -59,10 +63,32 @@
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            // services.AddTransient<SeedDb>();
-            services.AddScoped<IReaction, ReactionRepository>();
-            services.AddScoped<IUserHelper, UserHelper>();
-            services.AddScoped<IMailHelper, MailHelper>();
+            //services.Configure<IISServerOptions>(options =>
+            //{
+            //    options.AutomaticAuthentication = false;
+            //});
+
+            services.AddMyDependencies(Configuration);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Wimym.Api", Version = "v1" });
+            });
+
+            // Automapper config
+            MyMaps.Initialize();
+
+            //////Maintain only one instance of the string connection
+            ////// SpaParameters.ApiUrl = Configuration["Api:Url"];
+
+            //////services.AddScoped<IAuthorizationHandler,
+            //////    ContactIsOwnerAuthorizationHandler>();
+
+            //////services.AddSingleton<IAuthorizationHandler,
+            //////    ContactAdministratorsAuthorizationHandler>();
+
+            //////services.AddSingleton<IAuthorizationHandler,
+            //////    ContactManagerAuthorizationHandler>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -75,15 +101,27 @@
                 options.LoginPath = "/Account/NotAuthorized";
                 options.AccessDeniedPath = "/Account/NotAuthorized";
             });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            ////services.AddMvc(config =>
+            ////{
+            ////    // using Microsoft.AspNetCore.Mvc.Authorization;
+            ////    // using Microsoft.AspNetCore.Authorization;
+            ////    var policy = new AuthorizationPolicyBuilder()
+            ////        .RequireAuthenticatedUser()
+            ////        .Build();
+            ////    config.Filters.Add(new AuthorizeFilter(policy));
+            ////}).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataContext context)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -97,12 +135,23 @@
             app.UseAuthentication();
             app.UseCookiePolicy();
 
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wimym Api");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbInitializer.Initialize(context);
         }
     }
 }

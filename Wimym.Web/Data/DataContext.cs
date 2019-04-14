@@ -41,6 +41,7 @@
         //[NotMapped]
         //public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
+        public DbSet<Owner> Owners { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AccountType> AccountTypes { get; set; }

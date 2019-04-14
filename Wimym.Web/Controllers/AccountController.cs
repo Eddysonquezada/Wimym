@@ -10,6 +10,7 @@
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
+    using Wimym.Web.Data;
     using Wimym.Web.Data.Entities;
     using Wimym.Web.Helpers;
     using Wimym.Web.Models;
@@ -20,16 +21,18 @@
         private readonly IMailHelper mailHelper;
         //private readonly ICountryRepository countryRepository;
         private readonly IConfiguration configuration;
+        private readonly DataContext context;
 
         public AccountController(
             IUserHelper userHelper,
             IMailHelper mailHelper,
-            IConfiguration configuration)
+            IConfiguration configuration, DataContext context)
         {
             this.userHelper = userHelper;
             this.mailHelper = mailHelper;
             //   this.countryRepository = countryRepository;
             this.configuration = configuration;
+            this.context = context;
         }
 
         public IActionResult Login()
@@ -89,6 +92,14 @@
                 if (user == null)
                 {
                     //  var city = await this.countryRepository.GetCityAsync(model.CityId);
+                    var owner = new Owner
+                    {
+                        Name = model.FirstName,
+                        Lastname = model.LastName
+                    };
+
+                    await this.context.Owners.AddAsync(owner);
+                    await this.context.SaveChangesAsync();
 
                     user = new ApplicationUser
                     {
@@ -96,6 +107,7 @@
                         Lastname = model.LastName,
                         Email = model.Username,
                         UserName = model.Username,
+                        Owner= owner,
                        // Address = model.Address,
                         PhoneNumber = model.PhoneNumber,
                         //CityId = model.CityId,
