@@ -6,7 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Clasifications\**" />
+    <Content Remove="Views\Clasifications\**" />
+    <EmbeddedResource Remove="Views\Clasifications\**" />
+    <None Remove="Views\Clasifications\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\ClasificationsController.cs" />
     <Compile Remove="Data\Entities\User.cs" />
+    <Compile Remove="Helpers\CurrentUser.cs" />
+    <Compile Remove="Interfaces\ICurrentUserFactory.cs" />
     <Compile Remove="Models\ApplicationUser.cs" />
   </ItemGroup>
 
@@ -23,6 +33,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wimym.Common\Wimym.Common.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>

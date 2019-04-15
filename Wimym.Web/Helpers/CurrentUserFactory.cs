@@ -3,7 +3,11 @@
     using Microsoft.AspNetCore.Http;
     using System.Linq;
     using System.Security.Claims;
-    using Wimym.Web.Interfaces;
+
+    public interface ICurrentUserFactory
+    {
+        CurrentUser Get { get; }
+    }
 
     public class CurrentUserFactory : ICurrentUserFactory
     {
@@ -21,16 +25,33 @@
             get {
                 var result = new CurrentUser();
 
-                if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                if (_httpContextAccessor.HttpContext == null || !_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
                 {
                     return result;
                 }
 
-                var claims = _httpContextAccessor.HttpContext.User.Claims;
+                //var userClaims = new UserClaims();
+                var claims = _httpContextAccessor.HttpContext.User.Claims.ToList();
+                //foreach (var claim in claims)
+                //{
+                //    switch (claim.Type)
+                //    {
+                //        case "nameidentifier":
+                //            result.UserId = claim.Value;
+                //            break;
+                //        //case UserClaimsKey.Name:
+                //        //    userClaims.UserName = claim.Value;
+                //        //    break;
+                //        //case UserClaimsKey.Role:
+                //        //    userClaims.UserRoles.Add(claim.Value);
+                //        //    break;
+                //    }
+                //}
+               // var claims = _httpContextAccessor.HttpContext.User.Claims;
 
-                if (claims.Any(x => x.Type.Equals("sub")))
+                //if (claims.Any(x => x.Type.Equals("nameidentifier")))
                 {
-                    result.UserId = claims.Where(x => x.Type.Equals("sub")).First().Value;
+                    result.UserId = claims.First().Value;
                 }
 
                 if (claims.Any(x => x.Type.Equals(ClaimTypes.Name)))
@@ -71,6 +92,19 @@
                 return result;
             }
         }
+    }
 
+    public class CurrentUser
+    {
+        public string UserId { get; set; }
+        public string Name { get; set; }
+        public string SeoUrl { get; set; }
+        public string Lastname { get; set; }
+        public string Email { get; set; }
+        public string Image { get; set; }
+        public string Token { get; set; }
+        public string Role { get; set; }
+
+        // public string Password { get; set; }
     }
 }

@@ -31,7 +31,7 @@
         //public decimal Amount2 { get; set; }
         //public decimal PreviousAmount { get; set; }
 
-        public Owner Owner { get; set; }
+       // public Owner Owner { get; set; }
 
         public ICollection<Account> Accounts { get; set; }
 

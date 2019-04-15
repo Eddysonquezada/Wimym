@@ -3,12 +3,23 @@
 }
 
 <p>
-    <a 
-       class="btn btn-info" href="@Url.Action("Index", "Clasifications", new { area = "Expenses"   })"> <span class="fa fa-institution"></span> Administrar Carteras </a>
+    <a class="btn btn-info" asp-controller="Wallets" asp-action="Index">
+        <i class="fa fa-institution"></i>
+        Administrar Carteras
+    </a>
     &nbsp; / &nbsp;
-    <a class="btn btn-info" href="@Url.Action("IndexTag", "Clasifications", new { area = "Expenses"   })"> <span class="fa fa-tags"></span> Administrar Etiquetas (Conceptos) </a>
+    <a class="btn btn-info" asp-controller="Tags" asp-action="Index">
+        <i class="fa fa-tags"></i>
+        Administrar Etiquetas (Conceptos)
+    </a>
+    <!--
+    <a class="btn btn-warning" asp-controller="Budgets" asp-action="Index">
+            <i class="fa fa-info"></i>
+            Administrar Presupuesto
+        </a> 
+    -->
+
     &nbsp;  &nbsp;
-    @*<a class="btn btn-warning" href="@Url.Action("IndexBudget", "Clasifications", new { area = "Expenses"   })"> <span class="fa fa-info"></span> Administrar Presupuesto </a>*@
 </p>
 
 
@@ -24,46 +35,46 @@
 
 @*@foreach (var item in Model.Operations)*@
 @*@foreach (var wallet in Model.Wallets)
-{
-    foreach (var account in wallet.Accounts)
     {
-        hayTrans = true;
-        if (account.AccountType.OriginId == 1)
+        foreach (var account in wallet.Accounts)
         {
-            ahorros += account.Amount;
-        }
-        else
-        {
-            deudas += account.Amount;
-        }
-        foreach (var operation in account.Operations)
-        {
-            if (operation.OriginId == 1)
+            hayTrans = true;
+            if (account.AccountType.OriginId == 1)
             {
-                if (account.AccountType.OriginId == 1)
-                {
-                    ingresos += operation.Amount;
-                }
-                else
-                {
-                    gastos += operation.Amount;
-                }
-
+                ahorros += account.Amount;
             }
             else
             {
-                if (account.AccountType.OriginId == 1)
+                deudas += account.Amount;
+            }
+            foreach (var operation in account.Operations)
+            {
+                if (operation.OriginId == 1)
                 {
-                    gastos += operation.Amount;
+                    if (account.AccountType.OriginId == 1)
+                    {
+                        ingresos += operation.Amount;
+                    }
+                    else
+                    {
+                        gastos += operation.Amount;
+                    }
+
                 }
                 else
                 {
-                    ingresos += operation.Amount;
+                    if (account.AccountType.OriginId == 1)
+                    {
+                        gastos += operation.Amount;
+                    }
+                    else
+                    {
+                        ingresos += operation.Amount;
+                    }
                 }
             }
         }
-    }
-}*@
+    }*@
 
 @*// gastos += item.Amount2;*@
 
@@ -215,27 +226,27 @@
                                 {
                                     @*<tr>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => operation.Date)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => operation.Origin.Simbol)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => operation.Account.Description)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => operation.Tag.Description)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => operation.Amount)
-                                        </td>
-                                        <td>
-                                             <a class="btn btn-warning" href="@Url.Action("EditOperation", "Clasifications", new { area = "Expenses", id = @item.a })"> <span class="fa fa-pencil-square-o "></span> Editar</a> 
-                                            <a class="btn btn-info" href="@Url.Action("DetailsOperation", "Clasifications", new {area = "Expenses", id = @operation.OperationId})"> <span class="fa fa-info"></span> Desglose de transacciones </a>
-                                            <a class="btn btn-danger" href="@Url.Action("DeleteOperation", "Clasifications", new {area = "Expenses", id = @operation.OperationId})" onclick="return confirm('Esta seguro que desea eliminar este registro?')"> <span class="fa fa-trash-o"></span> Eliminar </a>
-                                        </td>
-                                    </tr>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => operation.Date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => operation.Origin.Simbol)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => operation.Account.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => operation.Tag.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => operation.Amount)
+                                            </td>
+                                            <td>
+                                                 <a class="btn btn-warning" href="@Url.Action("EditOperation", "Clasifications", new { area = "Expenses", id = @item.a })"> <span class="fa fa-pencil-square-o "></span> Editar</a>
+                                                <a class="btn btn-info" href="@Url.Action("DetailsOperation", "Clasifications", new {area = "Expenses", id = @operation.OperationId})"> <span class="fa fa-info"></span> Desglose de transacciones </a>
+                                                <a class="btn btn-danger" href="@Url.Action("DeleteOperation", "Clasifications", new {area = "Expenses", id = @operation.OperationId})" onclick="return confirm('Esta seguro que desea eliminar este registro?')"> <span class="fa fa-trash-o"></span> Eliminar </a>
+                                            </td>
+                                        </tr>*@
                                 }
                             }
                         }

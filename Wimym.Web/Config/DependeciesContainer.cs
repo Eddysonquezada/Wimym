@@ -3,11 +3,10 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Wimym.Web.Interfaces;
-    using Wimym.Web.Helpers;
-    using Wimym.Web.Services;
     using Wimym.Web.Data.Repositories.Contracts;
     using Wimym.Web.Data.Repositories.Implementations;
+    using Wimym.Web.Helpers;
+    using Wimym.Web.Services;
 
     public static class DependeciesContainer
     {
@@ -17,10 +16,11 @@
         )
         {
 
-            #region Current User
-            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<ICurrentUserFactory, CurrentUserFactory>();
-            #endregion
+           // #region Current User
+           //services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+           // // services.AddHttpContextAccessor();
+           //  services.AddTransient<ICurrentUserFactory, CurrentUserFactory>();
+           // #endregion
 
             #region My services
             services.AddScoped<IUserService, UserService>();

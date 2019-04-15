@@ -14,6 +14,7 @@
     using Wimym.Web.Config;
     using Wimym.Web.Data;
     using Wimym.Web.Data.Entities;
+    using Wimym.Web.Helpers;
 
     public class Startup
     {
@@ -26,6 +27,14 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
+           // services.AddHttpContextAccessor();
+            #region Current User
+            //services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+             services.AddHttpContextAccessor();
+           // services.AddTransient<ICurrentUserFactory, CurrentUserFactory>();
+            #endregion
+            services.AddScoped<ICurrentUserFactory, CurrentUserFactory>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>(cfg =>
             {
