@@ -1,0 +1,72 @@
+﻿@model Domain.TRK.Tag
+
+@{
+    ViewBag.Title = "Detalle de Etiqueta (Concepto)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.UserId)
+    @Html.HiddenFor(model => model.StatusId)
+    @Html.HiddenFor(model => model.TagId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Amount, new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Amount2, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Amount2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Amount2, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    <div class="form-group">
+        <div class="col-md-2">
+            <a class="btn btn-success" href="@Url.Action("Index", "Clasifications", new {area = "Expenses"})" width="60" height="60">
+                <span class="fa fa-reply" width="60" height="60"> Volver al Listado</span>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-warning" href="@Url.Action("Edit", "Clasifications", new {area = "Expenses", id=@Model.TagId})" width="60" height="60">
+                <span class="fa fa-edit" width="60" height="60"> Editar Etiqueta (Concepto)</span>
+            </a>
+        </div>
+    </div>
+</div>
+<section class="MySection">
+    <h4>Ingresos/Gastos</h4>
+</section>
+<div>
+    <a class="btn btn-primary" href="@Url.Action("CreateLabel", "Clasifications", new { area = "Expenses", id = @Model.TagId })"> <span class="fa fa-plus"></span>   Registrar Tipo de Gasto o Ingreso</a>
+</div>
+<br />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(function () {
+
+            $('input,textarea,select').attr('disabled', true);
+
+        });
+    </script>
+}
+
+

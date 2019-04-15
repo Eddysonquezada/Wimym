@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Domain.TRK.Budget>
+
+@{
+    ViewBag.Title = "Presupuestos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+     
+    <a class="btn btn-success" href="@Url.Action("Resume", "Clasifications", new { area = "Expenses"   })"> <span class="fa fa-reply"></span> Volver al Resumen Financiero </a>
+    
+    <a class="btn btn-primary" href="@Url.Action("CreateBudget", "Clasifications", new {area = "Expenses"})"> <span class="fa fa-user-plus"></span> Registrar Presupuesto </a>
+</p>
+
+<div class="scroller">
+    <table id="MyTable" class="table table-striped table-bordered dt-responsive nowrap">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+             
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                
+                <td>
+                    <a class="btn btn-warning" href="@Url.Action("EditBudget", "Clasifications", new { area = "Expenses" , id=@item.BudgetId })"> <span class="fa fa-pencil-square-o"></span> Editar</a>
+                    <a class="btn btn-info" href="@Url.Action("DetailsBudget", "Clasifications", new { area = "Expenses" , id=@item.BudgetId })"> <span class="fa fa-info"></span> Detalle y Entradas </a>
+                    <a class="btn btn-danger" href="@Url.Action("DeleteBudget", "Clasifications", new { area = "Expenses" , id=@item.BudgetId })" onclick="return confirm('Esta seguro que desea eliminar este registro?')"> <span class="fa fa-trash-o"></span> Eliminar </a>
+
+                </td>
+            </tr>
+        }
+
+        </tbody>
+    </table>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('table').DataTable();
+        });
+    </script>
+
+}
+
+

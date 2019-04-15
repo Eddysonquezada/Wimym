@@ -1,0 +1,168 @@
+﻿@model Domain.TRK.Budget
+
+@{
+    ViewBag.Title = "Detalle de Presupuesto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.UserId)
+    @Html.HiddenFor(model => model.StatusId)
+    @Html.HiddenFor(model => model.BudgetId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Amount, new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <p>
+        <a class="btn btn-success" href="@Url.Action("IndexBudget", "Clasifications", new {area = "Expenses"})" width="60" height="60">
+            <span class="fa fa-reply" width="60" height="60"> Volver al Listado de Presupuestos</span>
+        </a>
+
+        <a class="btn btn-warning" href="@Url.Action("EditBudget", "Clasifications", new {area = "Expenses", id=@Model.BudgetId})" width="60" height="60">
+            <span class="fa fa-edit" width="60" height="60"> Editar Presupuesto</span>
+        </a>
+    </p>
+
+</div>
+<section class="MySection">
+    <h4>Entradas</h4>
+</section>
+<div>
+    <a class="btn btn-primary" href="@Url.Action("CreateBudgetDetail", "Clasifications", new { area = "Expenses", id = @Model.BudgetId })"> <span class="fa fa-plus"></span>   Registrar Entrada Presupuestal</a>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+
+        @if (Model.BudgetDetails.Count(x => x.OriginId == 1) == 0)
+            {
+            <h2>No existen ingresos presupuestados aun :'(</h2>
+        }
+        else
+        {
+            <div class="scroller">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Etiqueta (Concepto)
+                            </th>
+                            <th>
+                                Monto
+                            </th>
+                            <th>
+                                Observaciones
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.BudgetDetails.Where(x => x.OriginId == 1))
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tag.Description)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Observations)
+                                </td>
+                                <td>
+                                    @*<a class="btn btn-warning" href="@Url.Action("EditBudgetDetail", "Clasifications", new { area = "Expenses", id = @item.BudgetDetailId })"> <span class="fa fa-pencil-square-o "></span> Editar</a>*@
+                                    <a class="btn btn-info" href="@Url.Action("DetailsBudgetDetail", "Clasifications", new { area = "Expenses" , id=@item.BudgetDetailId })"> <span class="fa fa-info"></span> Detalle </a>
+                                    <a class="btn btn-danger" href="@Url.Action("DeleteBudgetDetail", "Clasifications", new { area = "Expenses", id = @item.BudgetDetailId })" onclick="return confirm('Esta seguro que desea eliminar este registro?')"> <span class="fa fa-trash-o"></span> Eliminar </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+
+        @if (Model.BudgetDetails.Count(x => x.OriginId == 2) == 0)
+            {
+            <h2>No existen Gastos presupuestados aun :D</h2>
+        }
+        else
+        {
+            <div class="scroller">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Etiqueta (Concepto)
+                            </th>
+                            <th>
+                                Monto
+                            </th>
+                            <th>
+                                Observaciones
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.BudgetDetails.Where(x => x.OriginId == 2))
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tag.Description)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Observations)
+                                </td>
+                                <td>
+                                    @*<a class="btn btn-warning" href="@Url.Action("EditBudgetDetail", "Clasifications", new { area = "Expenses", id = @item.BudgetDetailId })"> <span class="fa fa-pencil-square-o "></span> Editar</a>*@
+                                    <a class="btn btn-info" href="@Url.Action("DetailsBudgetDetail", "Clasifications", new { area = "Expenses" , id=@item.BudgetDetailId })"> <span class="fa fa-info"></span> Detalle </a>
+                                    <a class="btn btn-danger" href="@Url.Action("DeleteBudgetDetail", "Clasifications", new { area = "Expenses", id = @item.BudgetDetailId })" onclick="return confirm('Esta seguro que desea eliminar este registro?')"> <span class="fa fa-trash-o"></span> Eliminar </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(function () {
+
+            $('input,textarea,select').attr('disabled', true);
+
+        });
+    </script>
+}
+
+

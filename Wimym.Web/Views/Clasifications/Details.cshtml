@@ -1,0 +1,195 @@
+﻿@model Domain.TRK.Wallet
+
+@{
+    ViewBag.Title = "Detalle de Cartera";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.AuthorId)
+    @Html.HiddenFor(model => model.StatusId)
+    @Html.HiddenFor(model => model.WalletId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Code, new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Amount, new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+        </div>
+
+        @*@Html.LabelFor(model => model.Amount2, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Amount2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Amount2, "", new { @class = "text-danger" })
+            </div>*@
+    </div>
+
+    <p>
+        <a class="btn btn-success" href="@Url.Action("Index", "Clasifications", new {area = "Expenses"})" width="60" height="60">
+            <span class="fa fa-reply" width="60" height="60"> Volver al Listado de Carteras</span>
+        </a>
+
+        <a class="btn btn-warning" href="@Url.Action("Edit", "Clasifications", new {area = "Expenses", id=@Model.WalletId})" width="60" height="60">
+            <span class="fa fa-edit" width="60" height="60"> Editar Cartera</span>
+        </a>
+        <a class="btn btn-primary" href="@Url.Action("CreateLabel", "Clasifications", new {area = "Expenses", id=@Model.WalletId})" width="60" height="60">
+            <span class="fa fa-plus" width="60" height="60"> Registrar Cuenta</span>
+        </a>
+
+
+    </p>
+
+
+</div>
+
+
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <section class="MySection">
+            <h4>Cuentas de Ingresos</h4>
+        </section>
+        @if (Model.Accounts.Count(x => x.AccountType.OriginId == 1) == 0)
+            {
+            <h2>No existen Cuentas de Ingresos registradas aun :'(</h2>
+        }
+        else
+        {
+            <div class="scroller">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Codigo
+                            </th>
+                            <th>
+                                Cuenta
+                            </th>
+                            <th>
+                                Balance
+                            </th>
+                            @*<th>
+                                    Gastos
+                                </th>*@
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Accounts.Where(x => x.AccountType.OriginId == 1))
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Code)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.Amount2)
+                                    </td>*@
+                                <td>
+                                    <a class="btn btn-warning" href="@Url.Action("EditLabel", "Clasifications", new { area = "Expenses", id = @item.AccountId })"> <span class="fa fa-pencil-square-o "></span> Editar</a>
+                                    <a class="btn btn-info" href="@Url.Action("DetailsLabel", "Clasifications", new { area = "Expenses" , id=@item.AccountId })"> <span class="fa fa-info"></span> Desglose de transacciones </a>
+                                    <a class="btn btn-danger" href="@Url.Action("DeleteLabel", "Clasifications", new { area = "Expenses", id = @item.AccountId })" onclick="return confirm('Esta seguro que desea eliminar este registro?')"> <span class="fa fa-trash-o"></span> Eliminar </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        <section class="MySection">
+            <h4>Cuentas de Gastos</h4>
+        </section>
+        @if (Model.Accounts.Count(x => x.AccountType.OriginId == 2) == 0)
+            {
+            <h2>No existen Cuentas de Gastos registradas aun :D</h2>
+        }
+        else
+        {
+            <div class="scroller">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Codigo
+                            </th>
+                            <th>
+                                Cuenta
+                            </th>
+                            <th>
+                                Pagos
+                            </th>
+                            <th>
+                                Gastos
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Accounts.Where(x => x.AccountType.OriginId == 2))
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Code)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.Amount2)
+                                    </td>*@
+                                <td>
+                                    <a class="btn btn-warning" href="@Url.Action("EditLabel", "Clasifications", new { area = "Expenses", id = @item.AccountId })"> <span class="fa fa-pencil-square-o "></span> Editar</a>
+                                    <a class="btn btn-info" href="@Url.Action("DetailsLabel", "Clasifications", new { area = "Expenses" , id=@item.AccountId })"> <span class="fa fa-info"></span> Desglose de Informacion </a>
+                                    <a class="btn btn-danger" href="@Url.Action("DeleteLabel", "Clasifications", new { area = "Expenses", id = @item.AccountId })" onclick="return confirm('Esta seguro que desea eliminar este registro?')"> <span class="fa fa-trash-o"></span> Eliminar </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(function () {
+
+            $('input,textarea,select').attr('disabled', true);
+            $('table').DataTable({});
+
+        });
+    </script>
+}
+
+
